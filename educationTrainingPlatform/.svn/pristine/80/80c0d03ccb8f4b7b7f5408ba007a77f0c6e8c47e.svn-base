@@ -1,0 +1,42 @@
+package com.foxera.viewmodels;
+
+public class QueryProperty {
+	
+	private String name;
+	private String value;
+	private String aliaName;
+	private String comparesymbol;
+	private String logicSymbol;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getValue() {
+		return value;
+	}
+	public void setValue(String value) {
+		this.value = value;
+	}
+	public String getAliaName() {
+		return aliaName;
+	}
+	public void setAliaName(String aliaName) {
+		this.aliaName = aliaName;
+	}
+	public String getComparesymbol() {
+		return comparesymbol;
+	}
+	public void setComparesymbol(String comparesymbol) {
+		this.comparesymbol = comparesymbol;
+	}
+	public String getLogicSymbol() {
+		return logicSymbol;
+	}
+	public void setLogicSymbol(String logicSymbol) {
+		this.logicSymbol = logicSymbol;
+	}
+
+	
+}

@@ -1,0 +1,11 @@
+package com.foxera.background.service;
+
+/**
+ * 系统设定<b>功能管理</b>service
+ * @author fox
+ *
+ */
+public interface SystemSetFunctionService {
+	
+
+}

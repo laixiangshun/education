@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PopView</title>
+    <style type="text/css">
+        .form-control{
+            width: 150px;
+            display: inline-block;
+        }
+        .showinfo{
+            margin: 0px 100px 10px 0px;
+            width: 35%;
+        }
+        .infotitle{
+            width: 100px;
+            text-align: right;
+        }
+        .showinfo,.infotitle{
+            display: inline-block;
+        }
+        #page-title{
+            color: #337ab7;
+        }
+        #content textarea {
+            width: 650px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body id="body">
+<div class="CourseInfo">
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">課程名稱:</p>
+            <input type="text" class="form-control" value="鴻海教育訓練課程" readonly>
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">課程類別:</p>
+            <input type="text" class="form-control" value="類別1" readonly>
+        </div>
+    </div>
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">廠區:</p>
+            <input type="text" class="form-control" value="廠區1" readonly>
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">上課教室:</p>
+            <input type="text" class="form-control" value="教室1" readonly>
+        </div>
+    </div>
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">課程日期時間:</p>
+            <input type="text" class="form-control" value="2015/11/13" readonly>至
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">課程時數:</p>
+            <input type="text" class="form-control" value="2" readonly>
+        </div>
+    </div>
+    <div>
+        <div class="showinfo">
+            <p class="infotitle"></p>
+            <input type="text" class="form-control" value="2015/11/13" readonly>
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">報名截止時間:</p>
+            <input type="text" class="form-control" value="2015/11/01" readonly>
+        </div>
+    </div>
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">開課次集團:</p>
+            <input type="text" class="form-control" value="A次集團" readonly>
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">開課事業群:</p>
+            <input type="text" class="form-control" value="台北人資" readonly>
+        </div>
+    </div>
+</div>
+<div class="LecturerInfo">
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">講師姓名</p>
+            <input type="text" class="form-control" value="章微信" readonly>
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">講師現職:</p>
+            <input type="text" class="form-control" value="台北人資" readonly>
+        </div>
+    </div>
+    <div>
+        <div class="showinfo">
+            <p class="infotitle"></p>
+            <img src="../../images/test.jpg" style="width:105px;height: 112px;text-align: center; ">
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">講師類別:</p>
+            <input type="text" class="form-control" value="內部講師" readonly>
+        </div>
+    </div>
+    <div>
+        <p class="infotitle" style="display: inline-block;" >經歷：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <div class="showinfo">
+            <p class="infotitle">最高學歷：</p>
+            <input class="form-control" readonly >
+        </div>
+        <div class="showinfo">
+            <p class="infotitle">次高學歷：</p>
+            <input class="form-control" readonly >
+        </div>
+    </div>
+
+    <div>
+        <p class="infotitle" >專業領域：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <p class="infotitle"> 授課實績：</p>
+        <textarea class="form-control" readonly></textarea>
+
+    </div>
+
+    <div>
+        <p class="infotitle"> 課程大綱：</p>
+        <textarea class="form-control" readonly></textarea>
+
+    </div>
+
+    <div>
+        <p class="infotitle">培訓目的：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <p class="infotitle">培訓對象：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <p class="infotitle">考核方式：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <p class="infotitle">課程聯繫窗口資詢：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+
+    <div>
+        <p class="infotitle">備註：</p>
+        <textarea class="form-control" readonly></textarea>
+    </div>
+</div>
+</body>

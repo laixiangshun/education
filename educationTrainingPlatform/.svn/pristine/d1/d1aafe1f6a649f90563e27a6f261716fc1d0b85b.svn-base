@@ -1,0 +1,100 @@
+<!--<meta charset="UTF-8">
+<title>index-front</title>
+<link href="../../../style/bootstrap-3.3.7-dist/css/bootstrap.css" type="text/css" rel="stylesheet"/>
+<link href="../../../style/css/mainPage.css" type="text/css" rel="stylesheet"/>
+<script src="../../../jQuery/jquery-3.1.1.min.js" type="text/javascript"></script>
+<script src="../../../style/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="../../../jQuery/mcalendar.js"></script>-->
+
+<div id="courseDiscuss">
+    <h3>課程討論版</h3>
+    <div class="search-div">
+        <div class="search-div">
+            課程名稱：
+            <input type="text" class="form-control" />
+            課程開始時間：
+            <input type="text" class="form-control" />
+            課程結束時間：
+            <input type="text" class="form-control" onclick="popModal('systemSet/functionManegeChoose.html', '資料選擇器')"/>
+            &emsp;<button class="btn btn-xs btn-primary">查詢</button>
+        </div>
+    </div>
+    <div id="courseDiscussData">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th>序號</th>
+                <th>課程名稱</th>
+                <th>討論區</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>鴻海教育課程</td>
+                <td><a href="#" onclick="discuss('uniqueId', 'courseDiscuss/popDiscuss.html', '鴻海教育課程')">討論</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>勞工安全訓練課程</td>
+                <td><a href="#" onclick="discuss('uniqueId', 'courseDiscuss/popDiscuss.html', '勞工安全訓練課程')">討論</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="page-div">
+            <ul class="pagination">
+                <li class="disabled"><a onclick="next(this)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a onclick="next(this)">1 <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="next(this)">2</a></li>
+                <li><a onclick="next(this)">3</a></li>
+                <li><a onclick="next(this)">4</a></li>
+                <li><a onclick="next(this)">5</a></li>
+                <li><span >...</span></li>
+                <li><a onclick="next(this)">lastPage</a></li>
+                <li>
+                    <a onclick="next(this)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div style="" class="modal fade" id="courseDiscussModal" tabindex="-1" role="dialog" aria-labelledby="courseDiscussModalLabel">
+        <div class="modal-dialog" role="document" style="width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="courseDiscussModalLabel">title</h4>
+                </div>
+                <div  class="modal-body">
+                    加載中...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+</div>
+<script type="text/javascript">
+    function discuss(uniqueId, url, title){
+        if(url){
+            $("#courseDiscussModal").modal({backdrop: "static", keyboard: false});
+            $("#courseDiscussModalLabel").html(title);
+            $("#courseDiscussModal .modal-body").load(url);
+        }
+    }
+    function next(obj){
+        /*翻页，获取数据，将其填充到页面上
+         *
+         *
+         */
+        $(".pagination li").removeClass("active");
+        $(obj).parent().addClass("active");//获取当前a标签的父元素li标签，加入active类，使其处于选中状态
+    }
+</script>

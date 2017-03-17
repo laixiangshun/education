@@ -1,0 +1,47 @@
+package com.foxera.background.dao;
+
+import java.util.List;
+
+import com.foxera.models.Organization;
+
+/**
+ * <b>组织管理</b>相关数据操作
+ * @author fox
+ * 
+ */
+public interface OrganizationDao {
+	/**
+	 * 新增组织信息
+	 * @param organization
+	 * @return
+	 */
+	public boolean insertOrganization(Organization organization);
+	
+	/**
+	 * 更新组织信息
+	 * @param organization
+	 * @return
+	 */
+	public boolean updateOrganization(Organization organization);
+	
+	/**
+	 * 查询所有组织信息
+	 * @param index 第几页
+	 * @param pagesize 每页几条数据
+	 * @return
+	 */
+	public List<Organization> getOrganizations(int index,int pagesize);
+	
+	/**
+	 * 按条件查询
+	 * @param orgid 组织代码
+	 * @param orgname 组织名称
+	 * @param orgparent 父组织代码
+	 * @param status 是否有效状态
+	 * @param index 第几页
+	 * @param pagesize 每页几条
+	 * @return
+	 */
+	public List<Organization> getOrganizations(long orgid,String orgname,String orgparent,long status,int index,int pagesize);
+
+}

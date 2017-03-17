@@ -1,0 +1,246 @@
+package com.foxera.models;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+/**
+ * Functionalinfo entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name="FUNCTIONALINFO"
+    ,schema="TRAIN"
+)
+
+public class Functionalinfo  implements java.io.Serializable {
+
+
+    // Fields    
+
+     private Long functionid;
+     private String functionname;
+     private Long createuser;
+     private Date createdate;
+     private Long edituser;
+     private Date editdate;
+     private Long status;
+     private String remark;
+     private String urls;
+     private Long organizerule;
+     private String modulecode;
+     private String menuorder;
+     private Long parentfunc;
+     private String description;
+     private String functioncode;
+     private String functiondesc;
+
+
+    // Constructors
+
+    /** default constructor */
+    public Functionalinfo() {
+    }
+
+	/** minimal constructor */
+    public Functionalinfo(Long functionid) {
+        this.functionid = functionid;
+    }
+    
+    /** full constructor */
+    public Functionalinfo(Long functionid, String functionname, Long createuser, Date createdate, Long edituser, Date editdate, Long status, String remark, String urls, Long organizerule, String modulecode, String menuorder, Long parentfunc, String description, String functioncode, String functiondesc) {
+        this.functionid = functionid;
+        this.functionname = functionname;
+        this.createuser = createuser;
+        this.createdate = createdate;
+        this.edituser = edituser;
+        this.editdate = editdate;
+        this.status = status;
+        this.remark = remark;
+        this.urls = urls;
+        this.organizerule = organizerule;
+        this.modulecode = modulecode;
+        this.menuorder = menuorder;
+        this.parentfunc = parentfunc;
+        this.description = description;
+        this.functioncode = functioncode;
+        this.functiondesc = functiondesc;
+    }
+
+   
+    // Property accessors
+    @Id 
+    
+    @Column(name="FUNCTIONID", unique=true, nullable=false, precision=18, scale=0)
+
+    public Long getFunctionid() {
+        return this.functionid;
+    }
+    
+    public void setFunctionid(Long functionid) {
+        this.functionid = functionid;
+    }
+    
+    @Column(name="FUNCTIONNAME", length=300)
+
+    public String getFunctionname() {
+        return this.functionname;
+    }
+    
+    public void setFunctionname(String functionname) {
+        this.functionname = functionname;
+    }
+    
+    @Column(name="CREATEUSER", precision=18, scale=0)
+
+    public Long getCreateuser() {
+        return this.createuser;
+    }
+    
+    public void setCreateuser(Long createuser) {
+        this.createuser = createuser;
+    }
+    @Temporal(TemporalType.DATE)
+    @Column(name="CREATEDATE", length=7)
+
+    public Date getCreatedate() {
+        return this.createdate;
+    }
+    
+    public void setCreatedate(Date createdate) {
+        this.createdate = createdate;
+    }
+    
+    @Column(name="EDITUSER", precision=18, scale=0)
+
+    public Long getEdituser() {
+        return this.edituser;
+    }
+    
+    public void setEdituser(Long edituser) {
+        this.edituser = edituser;
+    }
+    @Temporal(TemporalType.DATE)
+    @Column(name="EDITDATE", length=7)
+
+    public Date getEditdate() {
+        return this.editdate;
+    }
+    
+    public void setEditdate(Date editdate) {
+        this.editdate = editdate;
+    }
+    
+    @Column(name="STATUS", precision=18, scale=0)
+
+    public Long getStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+    
+    @Column(name="REMARK", length=1200)
+
+    public String getRemark() {
+        return this.remark;
+    }
+    
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+    
+    @Column(name="URLS", length=300)
+
+    public String getUrls() {
+        return this.urls;
+    }
+    
+    public void setUrls(String urls) {
+        this.urls = urls;
+    }
+    
+    @Column(name="ORGANIZERULE", precision=18, scale=0)
+
+    public Long getOrganizerule() {
+        return this.organizerule;
+    }
+    
+    public void setOrganizerule(Long organizerule) {
+        this.organizerule = organizerule;
+    }
+    
+    @Column(name="MODULECODE", length=150)
+
+    public String getModulecode() {
+        return this.modulecode;
+    }
+    
+    public void setModulecode(String modulecode) {
+        this.modulecode = modulecode;
+    }
+    
+    @Column(name="MENUORDER", length=30)
+
+    public String getMenuorder() {
+        return this.menuorder;
+    }
+    
+    public void setMenuorder(String menuorder) {
+        this.menuorder = menuorder;
+    }
+    
+    @Column(name="PARENTFUNC", precision=18, scale=0)
+
+    public Long getParentfunc() {
+        return this.parentfunc;
+    }
+    
+    public void setParentfunc(Long parentfunc) {
+        this.parentfunc = parentfunc;
+    }
+    
+    @Column(name="DESCRIPTION", length=600)
+
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    @Column(name="FUNCTIONCODE", length=300)
+
+    public String getFunctioncode() {
+        return this.functioncode;
+    }
+    
+    public void setFunctioncode(String functioncode) {
+        this.functioncode = functioncode;
+    }
+    
+    @Column(name="FUNCTIONDESC", length=600)
+
+    public String getFunctiondesc() {
+        return this.functiondesc;
+    }
+    
+    public void setFunctiondesc(String functiondesc) {
+        this.functiondesc = functiondesc;
+    }
+   
+
+
+
+
+
+
+
+
+}

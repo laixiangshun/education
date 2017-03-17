@@ -1,0 +1,64 @@
+package com.foxera.util;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+
+/**
+ * 根据查询条件封装类和实体类型返回sql
+ * @author fox
+ *
+ */
+public class ConditionHelp {
+
+	public static <T> String getConditionString(QueryCondition condition) {
+		String result = "";
+		StringBuilder sb = new StringBuilder();
+		try {
+			if (condition.getqPropertys().size()>0) {
+				String aName = "";//model属性名
+				String type ="";//model属性的类型（简单类型）
+				String value = "";//model属性的值
+				Field field = null;
+				String prefix="";
+				for (QueryProperty<?> item : condition.getqPropertys()) {
+					aName = item.getName();
+					prefix="";
+					field = item.getCurrclass().getClass().getDeclaredField(aName);
+					field.setAccessible(true);
+					PropertyDescriptor pd = new PropertyDescriptor(
+							field.getName(), item.getCurrclass().getClass());
+					type = pd.getPropertyType().getSimpleName();
+					if (item.getComparesymbol().equals(QueryProperty.LIKE))
+					{
+						prefix="%";
+					}
+					switch (type.toLowerCase()) {
+					case "string":
+						if(!item.getValue().isEmpty()){
+							value = "'" +prefix+ item.getValue()+prefix + "'";
+						}
+						break;
+					default:
+						value = item.getValue();
+						break;
+					}
+					if (item.getAliaName() != null
+							&& item.getAliaName().length() > 0) {
+						aName = item.getAliaName() + "." + item.getName();
+					}
+					if(!value.trim().isEmpty()){
+						//如果查询条件的值为空，就不加入该查询条件
+						sb.append(" " + item.getLogicSymbol() +" "+ aName+" "+item.getComparesymbol()+" "+ value + " ");
+					}
+				}
+				result = sb.toString();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			result="";
+		}
+		return result;
+
+	}
+
+}

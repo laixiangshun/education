@@ -1,0 +1,349 @@
+package com.foxera.models;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Courseinfo entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "COURSEINFO", schema = "TRAIN")
+public class Courseinfo implements java.io.Serializable {
+
+	// Fields
+
+	private Long courseid;
+	private Long applicantid;
+	private Long meetingroomid;
+	private Long knowledgetypeid;
+	private String coursetitle;
+	private Date coursebegintime;
+	private Date courseendtime;
+	private Double coursehours;
+	private Date entrybegindate;
+	private Date entrydeadline;
+	private Long traineelimits;
+	private Long teacherid;
+	private Long region;
+	private String division;
+	private String department;
+	private String agenda;
+	private String coverobject;
+	private String purpose;
+	private Long evltypeid;
+	private String contact;
+	private Long createuser;
+	private Date createdate;
+	private String edituser;
+	private Date editdate;
+	private String remark;
+	private Byte status;
+	private Date bulletindate;
+
+	// Constructors
+
+	/** default constructor */
+	public Courseinfo() {
+	}
+
+	/** minimal constructor */
+	public Courseinfo(Long courseid) {
+		this.courseid = courseid;
+	}
+
+	/** full constructor */
+	public Courseinfo(Long courseid, Long applicantid, Long meetingroomid,
+			Long knowledgetypeid, String coursetitle, Date coursebegintime,
+			Date courseendtime, Double coursehours, Date entrybegindate,
+			Date entrydeadline, Long traineelimits, Long teacherid,
+			Long region, String division, String department, String agenda,
+			String coverobject, String purpose, Long evltypeid, String contact,
+			Long createuser, Date createdate, String edituser, Date editdate,
+			String remark, Byte status, Date bulletindate) {
+		this.courseid = courseid;
+		this.applicantid = applicantid;
+		this.meetingroomid = meetingroomid;
+		this.knowledgetypeid = knowledgetypeid;
+		this.coursetitle = coursetitle;
+		this.coursebegintime = coursebegintime;
+		this.courseendtime = courseendtime;
+		this.coursehours = coursehours;
+		this.entrybegindate = entrybegindate;
+		this.entrydeadline = entrydeadline;
+		this.traineelimits = traineelimits;
+		this.teacherid = teacherid;
+		this.region = region;
+		this.division = division;
+		this.department = department;
+		this.agenda = agenda;
+		this.coverobject = coverobject;
+		this.purpose = purpose;
+		this.evltypeid = evltypeid;
+		this.contact = contact;
+		this.createuser = createuser;
+		this.createdate = createdate;
+		this.edituser = edituser;
+		this.editdate = editdate;
+		this.remark = remark;
+		this.status = status;
+		this.bulletindate = bulletindate;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "COURSEID", unique = true, nullable = false, precision = 18, scale = 0)
+	public Long getCourseid() {
+		return this.courseid;
+	}
+
+	public void setCourseid(Long courseid) {
+		this.courseid = courseid;
+	}
+
+	@Column(name = "APPLICANTID", precision = 18, scale = 0)
+	public Long getApplicantid() {
+		return this.applicantid;
+	}
+
+	public void setApplicantid(Long applicantid) {
+		this.applicantid = applicantid;
+	}
+
+	@Column(name = "MEETINGROOMID", precision = 18, scale = 0)
+	public Long getMeetingroomid() {
+		return this.meetingroomid;
+	}
+
+	public void setMeetingroomid(Long meetingroomid) {
+		this.meetingroomid = meetingroomid;
+	}
+
+	@Column(name = "KNOWLEDGETYPEID", precision = 18, scale = 0)
+	public Long getKnowledgetypeid() {
+		return this.knowledgetypeid;
+	}
+
+	public void setKnowledgetypeid(Long knowledgetypeid) {
+		this.knowledgetypeid = knowledgetypeid;
+	}
+
+	@Column(name = "COURSETITLE", length = 600)
+	public String getCoursetitle() {
+		return this.coursetitle;
+	}
+
+	public void setCoursetitle(String coursetitle) {
+		this.coursetitle = coursetitle;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "COURSEBEGINTIME", length = 7)
+	public Date getCoursebegintime() {
+		return this.coursebegintime;
+	}
+
+	public void setCoursebegintime(Date coursebegintime) {
+		this.coursebegintime = coursebegintime;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "COURSEENDTIME", length = 7)
+	public Date getCourseendtime() {
+		return this.courseendtime;
+	}
+
+	public void setCourseendtime(Date courseendtime) {
+		this.courseendtime = courseendtime;
+	}
+
+	@Column(name = "COURSEHOURS", precision = 10)
+	public Double getCoursehours() {
+		return this.coursehours;
+	}
+
+	public void setCoursehours(Double coursehours) {
+		this.coursehours = coursehours;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ENTRYBEGINDATE", length = 7)
+	public Date getEntrybegindate() {
+		return this.entrybegindate;
+	}
+
+	public void setEntrybegindate(Date entrybegindate) {
+		this.entrybegindate = entrybegindate;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ENTRYDEADLINE", length = 7)
+	public Date getEntrydeadline() {
+		return this.entrydeadline;
+	}
+
+	public void setEntrydeadline(Date entrydeadline) {
+		this.entrydeadline = entrydeadline;
+	}
+
+	@Column(name = "TRAINEELIMITS", precision = 18, scale = 0)
+	public Long getTraineelimits() {
+		return this.traineelimits;
+	}
+
+	public void setTraineelimits(Long traineelimits) {
+		this.traineelimits = traineelimits;
+	}
+
+	@Column(name = "TEACHERID", precision = 18, scale = 0)
+	public Long getTeacherid() {
+		return this.teacherid;
+	}
+
+	public void setTeacherid(Long teacherid) {
+		this.teacherid = teacherid;
+	}
+
+	@Column(name = "REGION", precision = 18, scale = 0)
+	public Long getRegion() {
+		return this.region;
+	}
+
+	public void setRegion(Long region) {
+		this.region = region;
+	}
+
+	@Column(name = "DIVISION", length = 150)
+	public String getDivision() {
+		return this.division;
+	}
+
+	public void setDivision(String division) {
+		this.division = division;
+	}
+
+	@Column(name = "DEPARTMENT", length = 150)
+	public String getDepartment() {
+		return this.department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	@Column(name = "AGENDA", length = 3000)
+	public String getAgenda() {
+		return this.agenda;
+	}
+
+	public void setAgenda(String agenda) {
+		this.agenda = agenda;
+	}
+
+	@Column(name = "COVEROBJECT", length = 900)
+	public String getCoverobject() {
+		return this.coverobject;
+	}
+
+	public void setCoverobject(String coverobject) {
+		this.coverobject = coverobject;
+	}
+
+	@Column(name = "PURPOSE", length = 3000)
+	public String getPurpose() {
+		return this.purpose;
+	}
+
+	public void setPurpose(String purpose) {
+		this.purpose = purpose;
+	}
+
+	@Column(name = "EVLTYPEID", precision = 18, scale = 0)
+	public Long getEvltypeid() {
+		return this.evltypeid;
+	}
+
+	public void setEvltypeid(Long evltypeid) {
+		this.evltypeid = evltypeid;
+	}
+
+	@Column(name = "CONTACT", length = 900)
+	public String getContact() {
+		return this.contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	@Column(name = "CREATEUSER", precision = 18, scale = 0)
+	public Long getCreateuser() {
+		return this.createuser;
+	}
+
+	public void setCreateuser(Long createuser) {
+		this.createuser = createuser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "EDITUSER", length = 150)
+	public String getEdituser() {
+		return this.edituser;
+	}
+
+	public void setEdituser(String edituser) {
+		this.edituser = edituser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "EDITDATE", length = 7)
+	public Date getEditdate() {
+		return this.editdate;
+	}
+
+	public void setEditdate(Date editdate) {
+		this.editdate = editdate;
+	}
+
+	@Column(name = "REMARK", length = 1200)
+	public String getRemark() {
+		return this.remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	@Column(name = "STATUS", precision = 2, scale = 0)
+	public Byte getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BULLETINDATE", length = 7)
+	public Date getBulletindate() {
+		return this.bulletindate;
+	}
+
+	public void setBulletindate(Date bulletindate) {
+		this.bulletindate = bulletindate;
+	}
+
+}

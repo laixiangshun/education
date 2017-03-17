@@ -1,0 +1,193 @@
+package com.foxera.background.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.foxera.background.service.SystemSetRoleService;
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+
+/**
+ * 系统设定/角色管理 控制器
+ * @author rainbow
+ *
+ */
+@Controller
+public class SystemSetRoleController {
+	@Autowired
+	private SystemSetRoleService sesRoleService;
+	
+	/**
+	 * 角色管理初始化页面
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/roleManage.html",method=RequestMethod.GET)
+	public String SystemSetRoleManageIndex(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		int currentPage=1;
+		List<Role> rolesList=this.sesRoleService.selectRoles(currentPage, CommonComponent.PAGESIZE);
+		request.setAttribute("rolesList", rolesList);
+		return "background/systemSet/roleManage";
+	}
+	/**
+	 * 角色管理——新增页面
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/roleManageCreate.html",method=RequestMethod.GET)
+	public String SystemSetRoleManageAddRole(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		
+		return "background/systemSet/roleManageCreate";
+		
+	}
+	/**
+	 * 角色管理——获取角色权限页面
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/rolePermissionChoose.html",method=RequestMethod.GET)
+	public String SystemSetRolePermissionChoose(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		return "background/systemSet/rolePermissionChoose";
+	}
+	
+	/**
+	 * 角色管理——新增角色
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/roleManageAdd.html",method=RequestMethod.GET)
+	public void roleManageAdd(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		String roleCode=request.getParameter("roleCode");
+		String roleName=request.getParameter("roleName");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
+		String[] rolePermission=request.getParameterValues("permission");
+		Role role=new Role(roleName,roleCode);
+		boolean flag=this.sesRoleService.AddRole(role);
+		if(flag)
+		{	
+			Long roleId=role.getRoleid();
+			boolean flag2=this.sesRoleService.AddRoleFunction(roleId,rolePermission);
+			/*for (String permissionId : rolePermission) {
+				Rolefunctional roleFunction=new Rolefunctional(roleId,Long.parseLong(permissionId));
+				boolean flag2=this.sesRoleService.AddRoleFunction(roleFunction);
+			}*/
+			if(flag2)
+			{
+				response.getWriter().write("新增角色成功");
+			}else
+			{
+				this.sesRoleService.DeleteRole(role);
+			}
+		}else
+		{
+			response.getWriter().write("新增角色失败");
+		}
+	}
+	/**
+	 * 角色管理——删除选中角色
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/deleteRole.action",method=RequestMethod.POST)
+	public void roleManageDelete(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String[] roleIds=request.getParameterValues("roleIds");
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
+		if(roleIds.length==1)
+		{
+			Long roleId=(Long.parseLong(roleIds[0]));
+			Role role=this.sesRoleService.SelectRoleById(roleId);
+			if(role!=null)
+			{
+				//Role role=new Role(roleId);
+				boolean flag=this.sesRoleService.DeleteRole(role);
+				List<Rolefunctional> roleFunctional=this.sesRoleService.SelectRoleFunctional(roleId);
+				List<Long> roleFunctionalIdList=new ArrayList<>();
+				for (Rolefunctional rolefunctional : roleFunctional) {
+					roleFunctionalIdList.add(rolefunctional.getRfId());
+				}
+				boolean flag2=false;
+				if(roleFunctionalIdList!=null)
+				{
+					flag2=this.sesRoleService.DeleteRoleFunctionById(roleFunctionalIdList);
+				}
+				if(flag && flag2)
+				{
+					response.getWriter().write("删除成功");
+				}else
+				{
+					response.getWriter().write("删除失败");
+				}
+			}
+		}else
+		{
+			//List<Long> roleIdList=Arrays.asList(roleIds);
+			List<Long> roleIdList=new ArrayList<>();
+			for (String roleId : roleIds) {
+				roleIdList.add(Long.parseLong(roleId));
+			}
+			boolean flag=this.sesRoleService.DeleteRoles(roleIdList);
+			boolean flag2=false;
+			for(int i=0;i<roleIdList.size();i++)
+			{
+				Long roleId=roleIdList.get(i);
+				List<Rolefunctional> roleFunctionals=this.sesRoleService.SelectRoleFunctional(roleId);
+				List<Long> rolefunctionalIdList=new ArrayList<>();
+				for (Rolefunctional rolefunctional : roleFunctionals) {
+					rolefunctionalIdList.add(rolefunctional.getRfId());
+				}
+				if(rolefunctionalIdList!=null)
+				{
+					flag2=this.sesRoleService.DeleteRoleFunctionById(rolefunctionalIdList);
+				}
+			}
+			if(flag && flag2)
+			{
+				response.getWriter().write("删除成功");
+			}else
+			{
+				response.getWriter().write("删除失败");
+			}
+		}
+	}
+	/**
+	 * 角色管理——条件查询
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value="/background/inquiryRole.action",method=RequestMethod.POST)
+	public String RoleManageInquiry(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		try {
+			String roleCode=request.getParameter("roleCode");
+			String roleName=request.getParameter("roleName");
+			String rolePermission=request.getParameter("rolePermission");
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "/background/systemSet/roleManage";
+	}
+}

@@ -1,0 +1,151 @@
+package com.foxera.background.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.foxera.background.dao.RoleDao;
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+
+/**
+ * 角色管理dao层实现
+ * @author rainbow
+ *
+ */
+@Repository("RoleDao")
+public class RoleDaoImpl implements RoleDao{
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public boolean insertRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.save(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.delete(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteRoles(List<Long> roleid) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			Query q=session.createQuery("delete from Role r where r.roleid in (:roleIds)");
+			q.setParameterList("roleIds", roleid);
+			q.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.update(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public Role SelectRoleById(Long roleid) {
+		Session session =this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			Role role=(Role)session.createQuery("from Role r where r.roleid =:roleid").setLong("roleid", roleid).uniqueResult();
+			return role;
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Role> getRoles(int index, int pagesize) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			Query q=session.createQuery("select rolecode,rolename,functionname from Role,Rolefunctional,Functionalinfo where Role.roleid=Rolefunctional.roleid and Rolefunctional.functionid=Functionalinfo.functionid");
+			q.setFirstResult((index-1)*pagesize);
+			q.setMaxResults(pagesize);
+			return q.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Role> getRoles(String rolecode, String rolename,
+			List<Long> functionid, int index, int pagesize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean AddRoleFunction(Rolefunctional rolefunction) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.save(rolefunction);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	
+	}
+
+	@Override
+	public List<Rolefunctional> SelectRoleFunctionalByRoleId(Long roleId) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			Query q=session.createQuery("from RoleFunctional r where r.roleid=:roleid");
+			q.setLong("roleid", roleId);
+			return q.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean DeleteRoleFunctionalByIds(List<Long> roleFunctionalIds) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			Query q=session.createQuery("delete from Rolefuntional r where r.rfId in (:roleFunctionids)");
+			q.setParameterList("roleFunctionids", roleFunctionalIds);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+	
+}

@@ -1,0 +1,134 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>teacherCreate</title>
+    <style type="text/css">
+    	#teacherCreate .left,
+    	#teacherCreate .right{
+    		float:left;
+    	}
+    	#teacherCreate .left{
+    		width:410px;
+    		
+    	}
+    	#teacherCreate .right{width:150px;}
+    	#teacherCreate .data-item{
+    		text-align: left;
+    		margin-bottom: 10px;
+    		overflow: hidden;
+    	}
+    	#teacherCreate .name{
+    		display: block;
+    		width:150px;
+    		text-align: right;
+    		float: left;
+    		
+    	}
+    	#teacherCreate .form-control{
+    		display: block;
+    		width:250px;
+    		float: left;
+    	}
+    	#teacherCreate .left input.course-date{
+    		width: 230px;
+    		margin-bottom: 5px;
+    	}
+    	#teacherCreate img{
+    		max-width: 100px;
+    		max-height: 100px;
+    	}
+    </style>
+</head>
+<body>
+<div id="teacherCreate">
+	<div class="left">
+		<div class="data-item">
+			<span class="name">講師類別<font color="red">*</font>：</span>
+			<select class="form-control" id="teacherType" onchange="teacherChange()">
+				<option value="inside">內部講師</option>
+				<option value="outside">外部講師</option>
+			</select>
+		</div>
+		<div class="data-item">
+			<span class="name" id="workNumberSpan">工號<font color="red">*</font>：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">姓名<font color="red">*</font>：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">電話<font color="red">*</font>：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">電子郵件<font color="red">*</font>：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">現職：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">課程名稱<font color="red">*</font>：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">課程日期時間：</span>
+			<input type="text" class="form-control course-date"/> 至
+			<span class="name">&emsp;</span>
+			<input type="text" class="form-control course-date"/>			
+		</div>
+		<div class="data-item">
+			<span class="name">課程類別<font color="red">*</font>：</span>
+			<select class="form-control">
+				<option>在職訓練(OJJ)</option>
+				<option>在職訓練(OJJ)</option>
+				<option>在職訓練(OJJ)</option>
+			</select>
+		</div>
+		<div class="data-item">
+			<span class="name">經歷：</span>
+			<textarea class="form-control" rows="6" cols="70" maxlength="420"></textarea>
+		</div>
+		<div class="data-item">
+			<span class="name">最高學歷：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">次高學歷：</span>
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="data-item">
+			<span class="name">專業領域：</span>
+			<textarea class="form-control" rows="6" cols="70" maxlength="420"></textarea>
+		</div>
+		<div class="data-item">
+			<span class="name">授課實績：</span>
+			<textarea class="form-control" rows="6" cols="70" maxlength="420"></textarea>
+		</div><div class="data-item">
+			<span class="name">備註：</span>
+			<textarea class="form-control" rows="6" cols="70" maxlength="420"></textarea>
+		</div>
+	</div>
+	<div class="right">
+		<div>
+			<img alt="講師照片" src="${path }/images/test.jpg"><br>
+			格式：JPG &lt;500KB
+		</div>
+	</div>
+	</div>
+	<script type="text/javascript">
+		function teacherChange(){
+			if($("#teacherType").val() == "inside"){
+				$("#workNumberSpan").html("工號<font color='red'>*</font>：");
+			}else{
+				$("#workNumberSpan").html("工號：");
+			}
+		}
+	</script>
+</body>
+</html>

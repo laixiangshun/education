@@ -1,0 +1,59 @@
+#popDiscuss {
+    text-align: left;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+#popDiscuss .discuss-item {
+    border-bottom: 1px solid #337ab7;
+    margin-top: 10px;
+}
+#popDiscuss .discuss-show {
+    overflow: hidden;
+}
+#popDiscuss .discuss-index {
+    color: #337AB7;
+    font-size: 24px;
+    float: left;
+    width: 20%;
+    text-align: center;
+    font-weight: bold;
+}
+#popDiscuss .discuss-content {
+    float: left;
+    width: 78%;
+}
+#popDiscuss .discuss-content .content {
+    color: #337ab7;
+}
+#popDiscuss .discuss-content .name {
+    display: inline-block;
+    width: 100px;
+    text-align: left;
+}
+#popDiscuss textarea.form-control {
+    display: inline-block;
+}
+#popDiscuss .discuss-input{
+    padding-bottom: 10px;
+    text-align: right;
+    display: none;
+}
+
+#popDiscuss .page-div{
+    margin-top: 10px;
+}
+#popDiscuss #discuss-commit-div{
+    width: 100%;
+    text-align: right;
+}
+#popDiscuss #discuss-commit-div textarea{
+    margin-top: 10px;
+    height: 100px;
+}
+#popDiscuss #discuss-commit-div button,
+#popDiscuss .discuss-input button{
+    margin-right: 10px;
+}
+
+

@@ -1,0 +1,259 @@
+package com.foxera.background.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.foxera.background.service.SystemSetFunctionService;
+import com.foxera.models.Functionalinfo;
+import com.foxera.models.Userinfo;
+import com.foxera.util.BeanToJson;
+import com.foxera.viewmodels.ParentFuncInfo;
+import com.foxera.viewmodels.QueryCondition;
+import com.foxera.viewmodels.QueryProperty;
+import com.foxera.viewmodels.ViewModel;
+
+/**
+ * 系统设定/功能管理 控制器
+ * 
+ * @author fox
+ * 
+ */
+@RequestMapping("/background")
+@Controller
+public class SystemSetFunctionController {
+	@Autowired
+	private SystemSetFunctionService systemSetFunctionService;
+
+	/**
+	 * 进入功能管理页面，查询功能列表
+	 * 
+	 * @param request
+	 * @return
+	 */
+//	@RequestMapping(value = "/functionManage.html", method = RequestMethod.GET)
+//	public String toFuncManagerPage(HttpServletRequest request) {
+//		QueryCondition condition = new QueryCondition();
+//		ViewModel<Functionalinfo> funcs = this.systemSetFunctionService
+//				.getFunctionalinfos(0, CommonComponent.PAGESIZE, condition);
+//		request.setAttribute("functions", funcs);
+//		return "background/systemSet/functionManage";
+//	}
+
+	/**
+	 * 按条件查询功能信息
+	 * 
+	 * @param request
+	 * @return
+	 */
+//	@RequestMapping(value = "/queryfuns.action", method = RequestMethod.GET)
+	@RequestMapping(value = "/functionManage.html", method = RequestMethod.GET)
+	public String doQueryFuncs(HttpServletRequest request,
+			HttpServletResponse response) {
+//		String modulecode = request.getParameter("modulecode");// 模组代码
+//		String functionname = request.getParameter("functionname");// 功能名称
+//		String parentfunc = request.getParameter("parentfuncid");// 父模组,functionid
+		String pageIndex = request.getParameter("pageindex");// 第几页
+		// List<Functionalinfo> funcs = this.systemSetFunctionService
+		// .getFunctionalinfos(modulecode, functionname, parentfunc, 0,
+		// CommonComponent.PAGESIZE);
+		QueryCondition condition = new QueryCondition();
+		for (String item : request.getParameterMap().keySet()) {
+			String value = request.getParameter(item);
+			if ((item.contains("pageindex") == false && item.toLowerCase()
+					.contains("pagesize") == false)
+					&& value != null
+					&& value.length() > 0) {
+				QueryProperty property = new QueryProperty();
+				property.setAliaName("f");
+				property.setName(item);
+				property.setValue(value);
+				property.setLogicSymbol(" AND ");
+				if (item.toLowerCase().contains("functionname"))
+				{
+					property.setComparesymbol(" like ");
+				}
+				else
+				{
+				   property.setComparesymbol("=");
+				}
+				condition.getqProperty().add(property);
+			}
+		}
+
+		ViewModel<Functionalinfo> funcs = this.systemSetFunctionService
+				.getFunctionalinfos(
+						pageIndex == null ? 0 : Integer.valueOf(pageIndex),
+						CommonComponent.PAGESIZE, condition);
+		request.setAttribute("functions", funcs);
+
+		return "background/systemSet/functionManage";
+	}
+
+	/**
+	 * 进入新增功能资料页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/functionManageCreate.html", method = RequestMethod.GET)
+	public String toAddFuncPage(HttpServletRequest request) {
+		return "background/systemSet/functionManageCreate";
+	}
+
+	/**
+	 * 执行新增功能资料操作
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/addfunc.action", method = RequestMethod.GET)
+	public void doAddFunc(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String modulecode = request.getParameter("modulecode");// 模组代码
+		String menuorder = request.getParameter("menuorder");// 顺序号
+		String parentfunc = request.getParameter("parentfuncid");// 父模组,functionid
+		String functionname = request.getParameter("functionname");// 功能名称(窗口名称)
+		String urls = request.getParameter("urls");// 功能网页地址
+		String description = request.getParameter("description");// 模组描述
+		String functioncode = request.getParameter("functioncode");// 功能码
+		String functiondesc = request.getParameter("functiondesc");// 功能描述
+		Userinfo userinfo = (Userinfo) request.getSession()
+				.getAttribute("user");
+		boolean flag = this.systemSetFunctionService.addFunc(modulecode,
+				menuorder, parentfunc, functionname, urls, description,
+				functioncode, functiondesc, userinfo.getUserid());
+		// boolean flag=this.systemSetFunctionService.addFunc("test01", "1",
+		// null, "系统设定", null, "这是系统设定模组描述", "1", "这是功能描述",
+		// Long.parseLong("1"));
+		// boolean flag=this.systemSetFunctionService.addFunc("test02", "2",
+		// "1", "功能管理", "/functionManage.html", "这是系统设定模组描述", "101", "这是功能描述",
+		// Long.parseLong("1"));
+		if (flag) {
+			response.getWriter().write("true");
+		} else {
+			response.getWriter().write("false");
+		}
+	}
+
+	/**
+	 * 进入修改功能资料页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/functionManageModify.html", method = RequestMethod.GET)
+	public String toModifyFuncPage(HttpServletRequest request) {
+		String functionid = request.getParameter("functionid");
+		Functionalinfo func = this.systemSetFunctionService
+				.getFunctionalinfo(Long.parseLong(functionid));
+		request.setAttribute("function", func);
+		return "background/systemSet/functionManageCreate";
+	}
+
+	/**
+	 * 执行修改功能资料操作
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/modifyfunc.action", method = RequestMethod.GET)
+	public void doModifyFunc(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String functionid = request.getParameter("functionid");// 功能id
+		String modulecode = request.getParameter("modulecode");// 模组代码
+		String menuorder = request.getParameter("menuorder");// 顺序号
+		String parentfunc = request.getParameter("parentfuncid");// 父模组,functionid
+		String functionname = request.getParameter("functionname");// 功能名称(窗口名称)
+		String urls = request.getParameter("urls");// 功能网页地址
+		String description = request.getParameter("description");// 模组描述
+		String functioncode = request.getParameter("functioncode");// 功能码
+		String functiondesc = request.getParameter("functiondesc");// 功能描述
+		Userinfo userinfo = (Userinfo) request.getSession()
+				.getAttribute("user");
+		boolean flag = this.systemSetFunctionService.modifyFunc(functionid,
+				modulecode, menuorder, parentfunc, functionname, urls,
+				description, functioncode, functiondesc, userinfo.getUserid());
+		// boolean flag=this.systemSetFunctionService.modifyFunc("1", "1", null,
+		// "系统设定", null, "这是系统设定模组描述", "1", "这是功能描述", Long.parseLong("1"));
+		if (flag) {
+			response.getWriter().write("true");
+		} else {
+			response.getWriter().write("false");
+		}
+
+	}
+
+	/**
+	 * 系统设定-功能管理-选择父模组
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/functionManageChoose.html", method = RequestMethod.GET)
+	public String FunctionManageChoose(HttpServletRequest request,
+			HttpServletResponse response) {
+		List<Functionalinfo> funcs = this.systemSetFunctionService
+				.getAllFunctionalinfos();
+		List<ParentFuncInfo> pfs = new ArrayList<ParentFuncInfo>();
+		pfs = getChildFuncs2(funcs, null);
+		String result = BeanToJson.beanToJson(pfs);
+		request.setAttribute("funcs", result);
+		// response.setCharacterEncoding("utf-8");
+		// response.setContentType("application/json;charset=utf-8");
+		// try {
+		// response.getWriter().write(result);
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		return "background/systemSet/functionManageChoose";
+	}
+
+	/**
+	 * 返回分层模型
+	 * 
+	 * @param funcs
+	 * @param pfs
+	 * @return
+	 */
+	public List<ParentFuncInfo> getChildFuncs2(List<Functionalinfo> funcs,
+			ParentFuncInfo parent) {
+		List<ParentFuncInfo> result = new ArrayList<ParentFuncInfo>();
+		ParentFuncInfo item = null;
+		for (int i = 0; i < funcs.size(); i++) {
+			Functionalinfo f = funcs.get(i);
+			item = new ParentFuncInfo(f.getFunctionid(), f.getFunctionname(),
+					f.getUrls());
+			if (f.getParentfunc() <= 0) {
+				result.add(item);
+			}
+			List<Functionalinfo> childFuncs = this.systemSetFunctionService
+					.getChildFunctions(f.getFunctionid());
+			if (childFuncs.size() > 0) {
+				List<ParentFuncInfo> temp = getChildFuncs2(childFuncs, item);
+				if (parent != null) {
+					parent.addChildNote(item);
+				}
+			} else {
+				if (parent != null) {
+					item.setNodes(null);
+					parent.addChildNote(item);
+				}
+			}
+		}
+		return result;
+
+	}
+
+}

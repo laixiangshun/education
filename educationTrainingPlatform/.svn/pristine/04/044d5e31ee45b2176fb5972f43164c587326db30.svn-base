@@ -1,0 +1,78 @@
+package com.foxera.background.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+
+/**
+ * 系统设定--角色管理--service接口
+ * @author rainbow
+ *
+ */
+public interface SystemSetRoleService {
+	/**
+	 * 添加角色
+	 * @param role
+	 * @return
+	 */
+	public boolean AddRole(Role role);
+	/**
+	 * 删除角色
+	 * @param role
+	 * @return
+	 */
+	public boolean DeleteRole(Role role);
+	/**
+	 * 根据角色id删除多个角色
+	 * @param idList
+	 * @return
+	 */
+	public boolean DeleteRoles(List<Long> idList);
+	/**
+	 * 修改角色
+	 * @param role
+	 * @return
+	 */
+	public Role SelectRoleById(Long roleId);
+	public boolean ModifyRole(Role role);
+	/**
+	 * 分页查询角色列表
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Role> selectRoles(int currentPage,int pageSize);
+	/**
+	 * 根据角色代码，角色名称，角色权限，分页查找角色
+	 * @param roleCode
+	 * @param roleName
+	 * @param functionid
+	 * @param currentPage
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Role> SelectRolesByCodeByNameByFunction(String roleCode,String roleName,List<Long> functionid,int currentPage,int pageSize);
+	
+	/**
+	 * 增加Rolefunctional中的对应roleId和functionid
+	 * @param rolefunction
+	 * @return
+	 */
+	public boolean AddRoleFunction(Long roleid,String[] rolePermission);
+	
+	/**
+	 * 根据roleId在表Rolefunctional中查找对应的Rolefunctional
+	 * @param roleId
+	 * @return
+	 */
+	public List<Rolefunctional> SelectRoleFunctional(Long roleId);
+	
+	/**
+	 * 根据roleFunctional的id删除对应的数据
+	 * @param roleFunctionIdList
+	 * @return
+	 */
+	public boolean DeleteRoleFunctionById(List<Long> roleFunctionIdList);
+}

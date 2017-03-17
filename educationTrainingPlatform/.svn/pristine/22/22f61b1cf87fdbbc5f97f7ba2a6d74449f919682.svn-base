@@ -1,0 +1,17 @@
+package com.foxera.background.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.foxera.background.service.SystemSetRoleService;
+
+/**
+ * 系统设定/角色管理 控制器
+ * @author fox
+ *
+ */
+@Controller
+public class SystemSetRoleController {
+	@Autowired
+	private SystemSetRoleService sesRoleService;
+}

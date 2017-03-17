@@ -1,0 +1,20 @@
+package com.foxera.background.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.foxera.background.service.SystemSetFunctionService;
+/**
+ * 系统设定/功能管理 控制器
+ * @author fox
+ *
+ */
+@Controller
+public class SystemSetFunctionController {
+	@Autowired
+	private SystemSetFunctionService systemSetFunctionService;
+	
+	
+	
+
+}

@@ -1,0 +1,62 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #roleManageCreate>div{
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        #roleManageCreate .name{
+            display: inline-block;
+            width: 100px;
+        }
+        #roleManageCreate input.form-control{
+            width: 450px;
+        }
+        #roleManageCreate input.form-control{
+            width: 450px;
+        }
+        #roleManageCreate .right-div{
+            display: inline-block;
+            width: 450px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="roleManageCreate">
+        <div>
+            <span class="name">角色識別碼<font color="red">*</font>：</span>
+            <input class="form-control" type="text">
+        </div>
+        <div>
+            <span class="name">角色名稱<font color="red">*</font>：</span>
+            <input class="form-control" type="text">
+        </div>
+        <!-- <div>
+            <span class="name">聯絡方式<font color="red">*</font>：</span>
+            <span class="right-div">
+                <input type="radio" name="communicationMethod" value="1" />啟用
+                &ensp;&ensp;&ensp;&ensp;
+                <input type="radio" name="communicationMethod" value="0" />未啟用
+            </span>
+        </div> -->
+        <!-- <div style="border-bottom: 1px solid #337ab7"></div> -->
+        <div>
+            <div class="name" style="float: left;">角色權限：</div>
+            <div class="right-div" id="rolePermissionChoose">
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#rolePermissionChoose").load("${path}/background/rolePermissionChoose.html");
+        });
+    </script>
+</body>
+</html>

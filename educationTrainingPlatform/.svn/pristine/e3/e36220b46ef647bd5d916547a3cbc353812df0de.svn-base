@@ -1,0 +1,186 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="included/bootstrap_lib.jsp" %>
+<!DOCTYPE html>
+<head>
+    <title>index-back</title>
+</head>
+<body>
+<div>
+    <div class="header" id="header">
+    </div>
+    <div class="main-body">
+        <div class="main-body-left" id="sidebar">
+            <div id="tree">
+            </div>
+        </div>
+        <div class="main-body-right" id="content">
+        </div>
+    </div>
+    <div class="footer" id="footer">
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        /* å è½½headerãfooterãwelcomeé¡µé¢ */
+        $.get("../tile/header.html",{"ajaxTime": new Date()}, function (data) {
+            //alert(data);
+            $("#header").html(data);
+        });
+        $.get("../tile/welcome.html",{"ajaxTime": new Date()}, function (data) {
+            $("#content").html(data);
+        });
+        $.get("../tile/footer.html",{"ajaxTime": new Date()}, function (data) {
+            $("#footer").html(data);
+        });
+        /* å è½½headerãfooterãwelcomeé¡µé¢ */
+        createSidebar();//å¨æçæsidebar
+        footerPosition();//footerèªéåºé¡µé¢é«åº¦ï¼å§ç»ä½äºé¡µé¢åºé¨
+    });
+
+    function createSidebar() {
+        /* æ ¹æ®æ°æ®ï¼å¨æçæsidebar */
+        function getTree() {//è·åæ ç¶å¯¼èªçæ°æ®
+            // Some logic to retrieve, or generate tree structure
+            var tree = [
+                {
+                    text: "æè²è¨ç·´å¹³å°ç³»çµ±",
+                    href: "../tile/welcome.html",
+                    nodes: [
+                        {
+                            text: "ç³»çµ±è¨­å®",
+                            nodes: [
+                                {
+                                    text: "åè½ç®¡ç",
+                                    href: "systemSet/functionManage.html"
+                                },
+                                {
+                                    text: "è§è²ç®¡ç",
+                                    href: "systemSet/roleManage.html"
+                                },
+                                {
+                                    text: "çµç¹ç®¡ç",
+                                    href: "systemSet/organizationManage.html"
+                                },
+                                {
+                                    text: "ç»éçè¦½æ¥èª",
+                                    href: "systemSet/loginLog.html"
+                                }
+                            ]
+                        },
+                        {
+                            text: "å®æ§æ¨¡çµ",
+                            nodes: [
+                                {
+                                    text: "ç¨æ¶ç®¡ç"
+                                },
+                                {
+                                    text: "ä¿®æ¹å¯ç¢¼"
+                                }
+                            ]
+                        },
+                        {
+                            text: "è¨­å®æ¨¡çµ",
+                            nodes: [
+                                {
+                                    text: "èª²ç¨æ»¿æåº¦èª¿æ¥åé "
+                                },
+                                {
+                                    text: "æ¬¡éåäºæ¥­ç¾¤è¨­å®"
+                                },
+                                {
+                                    text: "è³ä½è¡¨è¨­å®"
+                                },
+                                {
+                                    text: "æå§æè¨­å®"
+                                }
+                            ]
+                        },
+                        {
+                            text: "æ¶æ¯ç®¡ç",
+                            nodes: [
+                                {
+                                    text: "å¬åæ¶æ¯"
+                                }
+                            ]
+                        },
+                        {
+                            text: "èª²ç¨ç®¡ç",
+                            nodes: [
+                                {
+                                    text: "éè¾¦èª²ç¨"
+                                },
+                                {
+                                    text: "ç®¡çéè¾¦èª²ç¨"
+                                },
+                                {
+                                    text: "æè²è¨ç·´åºå¤æ¯å°"
+                                },
+                                {
+                                    text: "èª²ç¨è¨è«ååè¡¨"
+                                }
+                            ]
+                        },
+                        {
+                            text: "æå®¤ç®¡ç",
+                            nodes: [
+                                {
+                                    text: "æè­°å®¤/æå®¤é ç´åè¡¨"
+                                }
+                            ]
+                        },
+                        {
+                            text: "è¬å¸«è³æåº«",
+                            nodes: [
+                                {
+                                    text: "è¬å¸«åè¡¨"
+                                }
+                            ]
+                        },
+                        {
+                            text: "å ±è¡¨æ¨¡çµ",
+                            nodes: [
+                                {
+                                    text: "èª²ç¨æ»¿æåº¦åå·å ±è¡¨"
+                                }
+                            ]
+                        }
+                    ]
+                }/*,
+                {
+                    text: "test",
+                    href: "../test.html"
+                }*/
+            ];
+            return tree;
+        }
+        $("#tree").treeview({data: getTree()});
+        /* æ ¹æ®æ°æ®ï¼å¨æçæsidebar */
+    }
+
+    function footerPosition() {
+        /* footerèªéåºé¡µé¢é«åº¦ï¼å§ç»ä½äºé¡µé¢åºé¨ */
+        var winHeight = window.innerHeight;//å¯è§çªå£é«åº¦ï¼ä¸åæ¬æµè§å¨é¡¶é¨å·¥å·æ 
+        var headerHeight = $("#header").height();
+        var footerHeight = $("#footer").height();
+        //alert(headerHeight + "," + footerHeight);
+        $(".main-body").css("minHeight", winHeight - headerHeight - footerHeight - 10);
+        /* footerèªéåºé¡µé¢é«åº¦ï¼å§ç»ä½äºé¡µé¢åºé¨ */
+    }
+    function itemOnclick(target){
+        //æ¾å°å½åèç¹id
+        var nodeid = $(target).attr("data-nodeid");
+        //è·åå½åèç¹å¯¹è±¡
+        var root = $(target).closest(".treeview");//ç²åtreeçæ ¹ç¯é»
+        var node = root.treeview('getNode', nodeid);
+        if(node.tags){//tagsä¸çºç©ºè¡¨ç¤ºæ¯è³æé¸æå¨
+            alert(node.tags);
+            return;
+        }
+        if(node.href){//hrefä¸çºç©ºè¡¨ç¤ºæ¯sidebar
+            //alert(node.href);
+            $("#content").load(node.href);
+        }
+    }
+</script>
+</body>
+</html>

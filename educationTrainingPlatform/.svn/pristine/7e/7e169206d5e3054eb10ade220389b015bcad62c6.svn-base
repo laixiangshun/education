@@ -1,0 +1,87 @@
+package com.foxera.background.dao;
+
+import java.util.List;
+
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+
+/**
+ * <b>角色管理</b>相关数据操作
+ * @author rainbow
+ *
+ */
+public interface RoleDao {
+	/**
+	 * 新增角色
+	 * @param role
+	 * @return
+	 */
+	public boolean insertRole(Role role);
+	
+	/**
+	 * 删除角色
+	 * @param role
+	 * @return
+	 */
+	public boolean deleteRole(Role role);
+	
+	/**
+	 * 按照角色id删除多个角色
+	 * @param roleid
+	 * @return
+	 */
+	public boolean deleteRoles(List<Long> roleids);
+	
+	/**
+	 * 更新角色信息
+	 * @param role
+	 * @return
+	 */
+	public boolean updateRole(Role role);
+	
+	/**
+	 * 根据角色id查找对应的角色
+	 * @param roleid
+	 * @return
+	 */
+	public Role SelectRoleById(Long roleid);
+	/**
+	 * 查询所有角色（分页）
+	 * @param index 第几页
+	 * @param pagesize 每页几条
+	 * @return
+	 */
+	public List<Role> getRoles(int index,int pagesize);
+
+	/**
+	 * 按照条件进行查询角色（分页）
+	 * @param rolecode 角色识别码
+	 * @param rolename 角色名称
+	 * @param functionid 角色拥有的功能权限
+	 * @param index 第几页
+	 * @param pagesize 每页几条
+	 * @return
+	 */
+	public List<Role> getRoles(String rolecode,String rolename,List<Long> functionid,int index,int pagesize);
+	
+	/**
+	 * 在Rolefunctional中根据roleid和functionid增加
+	 * @param rolefunction
+	 * @return
+	 */
+	public boolean AddRoleFunction(Rolefunctional rolefunction);
+	
+	/**
+	 * 根据roleId在roleFunctional中查找对应的数据
+	 * @param roleId
+	 * @return
+	 */
+	public List<Rolefunctional> SelectRoleFunctionalByRoleId(Long roleId);
+	
+	/**
+	 * 根据roleFunctional的id删除对应的数据
+	 * @param roleFunctionalIds
+	 * @return
+	 */
+	public boolean DeleteRoleFunctionalByIds(List<Long> roleFunctionalIds);
+}

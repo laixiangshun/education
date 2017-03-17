@@ -1,0 +1,30 @@
+package com.foxera.background.service.impl;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Service;
+
+import com.foxera.background.dao.TeacherDataDao;
+import com.foxera.background.service.TeacherDataService;
+import com.foxera.models.Teacherinfo;
+
+@Transactional
+@Service("TeacherDataService")
+public class TeacherDataServiceImpl implements TeacherDataService{
+	private TeacherDataDao teacherdatadao;
+	@Override
+	public List<Teacherinfo> getTeacherData(){
+		return teacherdatadao.selectTeacherData();
+	}
+	@Override
+	public List<Teacherinfo> getTeacherData(Integer teacherid){
+		return teacherdatadao.selectTeacherData(teacherid);
+	}
+	@Override
+	public boolean addTeacherInfo(Teacherinfo teacherinfo){
+		return teacherdatadao.insertTeacherData(teacherinfo);
+	}
+	
+}

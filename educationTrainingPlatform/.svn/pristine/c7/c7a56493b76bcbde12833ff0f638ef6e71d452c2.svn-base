@@ -1,0 +1,17 @@
+package com.foxera.background.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.foxera.background.service.SystemSetOrganizationService;
+
+/**
+ * 系统设定/组织管理 控制器
+ * @author fox
+ *
+ */
+@Controller
+public class SystemSetOrganizationController {
+	@Autowired
+	private SystemSetOrganizationService systemSetOrganizationService;
+}

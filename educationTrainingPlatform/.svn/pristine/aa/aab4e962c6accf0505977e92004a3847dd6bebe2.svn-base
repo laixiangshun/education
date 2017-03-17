@@ -1,0 +1,240 @@
+package com.foxera.mongodb.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.ResourceBundle;
+
+import org.bson.Document;
+
+import com.foxera.mongodb.MongoDBDao;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
+
+/**
+ * 
+ * @author fox
+ *
+ */
+public class MongoDBDaoImpl implements MongoDBDao {
+
+	/**
+	 * MongoClient的实例代表数据库连接池，是线程安全的，可以被多线程共享，客户端在多线程条件下仅维持一个实例即可
+	 * Mongo是非线程安全的，目前mongodb API中已经建议用MongoClient替代Mongo
+	 */
+	private MongoClient mongoClient = null;
+	private MongoDatabase mongoDB = null;
+	private MongoCollection<Document> dbCollection = null;
+	private final String dbName="educationmongodb";
+	private final String collectionName="education_user";
+
+	/**
+	 * 
+	 * 私有的构造函数 
+	 */
+	private MongoDBDaoImpl() {
+		ResourceBundle resource = ResourceBundle.getBundle("resources/config");
+		String mongodb_server=resource.getString("mongodb");  
+		mongodb_server= (mongodb_server==null || mongodb_server.length()<=0)?"10.130.194.66":mongodb_server;
+		System.out.println("mongdb地址："+mongodb_server);
+		mongoClient = new MongoClient( mongodb_server , 27017 );
+        // 连接到数据库
+		mongoDB = mongoClient.getDatabase(dbName); // 获取指定的数据库
+		dbCollection = mongoDB.getCollection(collectionName); // 获取指定的collectionName集合
+		
+	}
+
+	/******** 单例模式声明开始，采用饿汉式方式生成，保证线程安全 ********************/
+
+	// 类初始化时，自行实例化，饿汉式单例模式
+	private static final MongoDBDaoImpl mongoDBDaoImpl = new MongoDBDaoImpl();
+
+	/**
+	 * 
+	 * 方法名：getMongoDBDaoImplInstance 作者：zhouyh 创建时间：2014-8-30 下午04:29:26
+	 * 描述：单例的静态工厂方法
+	 * 
+	 * @return
+	 */
+	public static MongoDBDaoImpl getMongoDBDaoImplInstance() {
+		return mongoDBDaoImpl;
+	}
+
+	/************************ 单例模式声明结束 *************************************/
+
+	@Override
+	public boolean delete(Map<String, String> keyValues) {
+		boolean flag=false;
+		try {
+			if(keyValues!=null){
+				Document document = new Document();
+//				for (Entry<String, String> entry : keyValues.entrySet()) {
+//					document.append(entry.getKey(), entry.getValue());
+//				}
+				for (Entry<String, String> entry : keyValues.entrySet()) {
+					//按条件删除 格式为keyValues.put("createDate", "{$gt:2016-12-28}"):表示删除createDate大于2016-12-28
+					String pvalue=entry.getValue();
+					if(pvalue.startsWith("logic{")&&pvalue.endsWith("}")&&pvalue.contains(":")){
+						pvalue=pvalue.replace("logic{", "").replace("}", "");
+						String[] logic=pvalue.split(":");
+						document.append(entry.getKey(), new Document().append(logic[0],logic[1]));
+					}else {
+						document.append(entry.getKey(), entry.getValue());
+					}
+				}
+				DeleteResult result=dbCollection.deleteMany(document);
+				if(result.getDeletedCount()>0){
+					flag= true;
+				}
+			}
+			flag= false;
+		} catch (Exception e) {
+			flag= false;
+		}
+		return flag;
+	}
+
+	@Override
+	public List<Document> find(Map<String, String> keyValues, int num) {
+		List<Document> resultList = new ArrayList<Document>(); // 创建返回的结果集
+		if (keyValues != null && keyValues.size() > 0) {
+			try {
+				Document document = new Document();
+//				for (Entry<String, String> entry : keyValues.entrySet()) {
+//					document.append(entry.getKey(), entry.getValue());
+//				}
+				for (Entry<String, String> entry : keyValues.entrySet()) {
+					//按条件查询 格式为keyValues.put("createDate", "{$gt:2016-12-28}"):表示查询createDate大于2016-12-28
+					String pvalue=entry.getValue();
+					if(pvalue.startsWith("logic{")&&pvalue.endsWith("}")&&pvalue.contains(":")){
+						pvalue=pvalue.replace("logic{", "").replace("}", "");
+						String[] logic=pvalue.split(":");
+						document.append(entry.getKey(), new Document().append(logic[0],logic[1]));
+					}else {
+						document.append(entry.getKey(), entry.getValue());
+					}
+				}
+				
+				FindIterable<Document> findIterable = dbCollection
+						.find(document);
+				MongoCursor<Document> mongoCursor = findIterable.iterator();
+				int count = 0;
+				if (num != -1) { // 判断是否是返回全部数据，num=-1返回查询全部数据，num!=-1则返回指定的num数据
+					while (count < num && mongoCursor.hasNext()) {
+						resultList.add(mongoCursor.next());
+						count++;
+					}
+					return resultList;
+				} else {
+					while (mongoCursor.hasNext()) {
+						resultList.add(mongoCursor.next());
+					}
+					return resultList;
+				}
+			} catch (Exception e) {
+				System.err.println(e.getClass().getName() + ": "
+						+ e.getMessage());
+			}
+		}
+		return resultList;
+	}
+
+	@Override
+	public MongoCollection<Document> getCollection(String dbName, String collectionName) {
+		return mongoClient.getDatabase(dbName).getCollection(collectionName);
+	}
+
+	@Override
+	public MongoDatabase getDb(String dbName) {
+		return mongoClient.getDatabase(dbName);
+	}
+
+	@Override
+	public boolean inSert(Map<String, String> keyValues) {
+		boolean flag = false;
+		if (keyValues != null && keyValues.size() > 0) {
+			try {
+				Document document = new Document();
+				for (Entry<String, String> entry : keyValues.entrySet()) {
+					document.append(entry.getKey(), entry.getValue());
+				}
+				dbCollection.insertOne(document);
+				flag = true;
+			} catch (Exception e) {
+				flag = false;
+				System.err.println(e.getClass().getName() + ": "
+						+ e.getMessage());
+			}
+		}
+		return flag;
+	}
+
+	@Override
+	public boolean isExit(String dbName, String collectionName, String key,
+			Object value) {
+		// TODO Auto-generated method stub
+//		 DB db = null;
+//		 DBCollection dbCollection = null;
+//		 if (key != null && value != null) {
+//		 try {
+//		 db = mongoClient.getDB(dbName); // 获取数据库实例
+//		 dbCollection = db.getCollection(collectionName); //
+////		 获取数据库中指定的collection集合
+//		 BasicDBObject obj = new BasicDBObject(); // 构建查询条件
+//		 obj.put(key, value);
+//		
+//		 if (dbCollection.count(obj) > 0) {
+//		 return true;
+//		 } else {
+//		 return false;
+//		 }
+//		 } catch (Exception e) {
+//		 // TODO: handle exception
+//		 e.printStackTrace();
+//		 } finally {
+//		 if (null != db) {
+//		 db.requestDone(); // 关闭db
+//		 db = null;
+//		 }
+//		 }
+//		
+//		 }
+		return false;
+	}
+
+	@Override
+	public boolean update(Map<String, String> oldkeyValues, Map<String, String> newkeyValues) {
+		boolean flag = false;
+		try {
+			Document newdocument = new Document();
+			if (newkeyValues != null && newkeyValues.size() > 0) {
+				for (Entry<String, String> entry : newkeyValues.entrySet()) {
+					newdocument.append(entry.getKey(), entry.getValue());
+				}
+			}
+			List<Document> found=find(oldkeyValues,1);
+			if (found!=null && found.size()==1)
+			{
+			  UpdateResult result = dbCollection.replaceOne(found.get(0),
+					  newdocument);
+			  int modifycount = (int) result.getModifiedCount();
+				if (modifycount > 1) {
+					flag = true;
+				}
+			}
+			
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+		}
+
+		return flag;
+	}
+
+
+}

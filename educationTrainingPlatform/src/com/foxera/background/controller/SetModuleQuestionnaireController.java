@@ -1,0 +1,22 @@
+package com.foxera.background.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * 设定模组/课程满意度调查问项 控制器
+ * @author fox
+ *
+ */
+@RequestMapping("/background")
+@Controller
+public class SetModuleQuestionnaireController {
+	@RequestMapping(value="/questionnaire.html",method=RequestMethod.GET)
+	public String Back(HttpServletRequest request,HttpServletResponse response){
+		return "background/setModule/questionnaire";
+	}
+}

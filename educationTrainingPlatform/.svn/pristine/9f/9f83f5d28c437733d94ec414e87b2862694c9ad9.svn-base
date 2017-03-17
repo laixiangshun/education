@@ -1,0 +1,86 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<html>
+  <head>
+  <style type="text/css">
+ 		
+  </style>
+  </head>
+  <body>
+   <h3>系統消息</h3>
+    <div class="search-div">
+	        主題：
+			<input type="text" class="form-control" style="width: 250px">
+		&emsp;作者：
+			<input type="text" class="form-control">
+		&emsp; 有效否：
+			<input type="text" class="form-control">
+		&emsp;<button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-search"></b>&nbsp;查詢</button>
+    </div>
+    
+	<div class="search-div">
+		<button class="btn btn-xs btn-primary" onclick="">
+		       <b class="glyphicon glyphicon-refresh"></b>&nbsp;重置
+		</button>
+		<button class="btn btn-xs btn-primary" onclick="">
+		       <b class="glyphicon glyphicon-plus-sign"></b>&nbsp;新增
+		</button>
+	</div>
+    
+    <div id="announcementData">
+    	<table class="table table-bordered table-striped table-condensed">
+    		<thead>
+    			<tr>
+    				<th></th>
+    				<th>狀態</th>
+    				<th>主題</th>
+    				<th>作者</th>
+    				<th>建立日期</th>
+    				<th>最後更新人</th>
+    				<th>最後更新時間</th>
+    				<th>有效否</th>
+    				<th>編輯</th>
+    				<th></th>
+    				<th></th>
+    				<th></th>
+    				<th></th>
+    				<th></th>
+    			</tr>
+    		</thead>
+    		<tbody>
+    			<tr>
+    				<td>1</td>
+    				<td></td>
+    				<td>提醒</td>
+    				<td>張偉信</td>
+    				<td>2015/09/07 11:38</td>
+    				<td>張偉信</td>
+    				<td>2015/09/10 13:59</td>
+    				<td>Y</td>
+    				<td></td>
+    				<td>置頂</td>
+    				<td>取消置頂</td>
+    				<td>刪除</td>
+    				<td>失效</td>
+    				<td>生效</td>
+    			</tr>
+    			<tr>
+    				<td>2</td>
+    				<td></td>
+    				<td>提醒</td>
+    				<td>張偉信</td>
+    				<td>2015/09/07 11:38</td>
+    				<td>張偉信</td>
+    				<td>2015/09/10 13:59</td>
+    				<td>Y</td>
+    				<td></td>
+    				<td>置頂</td>
+    				<td>取消置頂</td>
+    				<td>刪除</td>
+    				<td>失效</td>
+    				<td>生效</td>
+    			</tr>
+    		</tbody>
+    	</table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+package com.foxera.background.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.foxera.background.dao.RoleDao;
+import com.foxera.background.service.SystemSetRoleService;
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+
+/**
+ * 角色管理service层接口实现
+ * @author rainbow
+ *
+ */
+@Transactional
+@Service("SystemSetRoleService")
+public class SystemSetRoleServiceImpl implements SystemSetRoleService{
+	@Autowired
+	private RoleDao roleDao;
+
+	@Override
+	public boolean AddRole(Role role) {
+		boolean flag=this.roleDao.insertRole(role);
+		if(flag)
+		{
+			return true;
+		}else{
+		 return false;
+		}
+	}
+
+	@Override
+	public boolean DeleteRole(Role role) {
+		boolean flag=this.roleDao.deleteRole(role);
+		if(flag)
+		{
+			return true;
+		}else
+		{
+		return false;
+		}
+	}
+
+	@Override
+	public boolean DeleteRoles(List<Long> idList) {
+		boolean flag=this.DeleteRoles(idList);
+		if(flag)
+		{
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean ModifyRole(Role role) {
+		boolean flag=this.roleDao.deleteRole(role);
+		if(flag)
+		{
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Override
+	public Role SelectRoleById(Long roleId) {
+		Role role=this.roleDao.SelectRoleById(roleId);
+		if(role!=null)
+		{
+			return role;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Role> selectRoles(int currentPage, int pageSize) {
+		List<Role> roleList=this.roleDao.getRoles(currentPage, pageSize);
+		if(roleList!=null && roleList.size()>0)
+		{
+			return roleList;
+		}else{
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<Role> SelectRolesByCodeByNameByFunction(String roleCode,
+			String roleName, List<Long> functionid, int currentPage,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean AddRoleFunction(Long roleid,String[] rolefunction) {
+		for (String rolefunctionid : rolefunction) {
+			Rolefunctional roleFunction=new Rolefunctional(roleid,Long.parseLong(rolefunctionid));
+			boolean flag=this.roleDao.AddRoleFunction(roleFunction);
+			if(flag==false)
+			{
+				return false;
+			}
+		}
+			return true;
+	}
+
+	@Override
+	public List<Rolefunctional> SelectRoleFunctional(Long roleId) {
+		List<Rolefunctional> roleFunctionalList=this.roleDao.SelectRoleFunctionalByRoleId(roleId);
+		if(roleFunctionalList!=null)
+		{
+			return roleFunctionalList;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean DeleteRoleFunctionById(List<Long> roleFunctionIdList) {
+		boolean flag=this.roleDao.DeleteRoleFunctionalByIds(roleFunctionIdList);
+		if(flag)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
+}

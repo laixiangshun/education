@@ -1,0 +1,54 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #organizationManageCreate>div{
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        #organizationManageCreate .name{
+            display: inline-block;
+            width: 100px;
+        }
+        #organizationManageCreate input.form-control,
+        #organizationManageCreate select.form-control{
+            width: 450px;
+        }
+        #organizationManageCreate .text-btn-group input.form-control{
+            width: 425px;
+        }
+    </style>
+</head>
+<body>
+    <div id="organizationManageCreate">
+        <div>
+            <span class="name">組織名稱<font color="red">*</font>：</span>
+            <input class="form-control" type="text"/>
+        </div>
+        <div>
+            <span class="name">父組織：</span>
+            <div class="text-btn-group">
+                <input class="form-control" type="text"/>
+                <button class="btn btn-xs btn-primary  glyphicon glyphicon-search"></button>
+            </div>
+        </div>
+        <div>
+            <span class="name">層級名稱<font color="red">*</font>：</span>
+            <select class="form-control">
+                <option>集團</option>
+                <option>子集團</option>
+                <option>事業處</option>
+            </select>
+        </div>
+        <div>
+            <span class="name">順序號：</span>
+            <input class="form-control" type="text"/>
+        </div>
+    </div>
+</body>
+</html>

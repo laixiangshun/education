@@ -1,0 +1,213 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<style type="text/css">
+    #uniqueTree{
+        text-align: left;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+</style>
+<div id="uniqueTree">
+
+</div>
+<input id="selectContent" value="" type="hidden"/>
+<input id="selectId" value="" type="hidden"/>
+
+<script type="text/javascript">
+	var myTree=${requestScope.funcs};
+    /* var myTree = [
+        {
+            'text': "教育訓練平台系統",
+            'uniqueId': "0",
+            'nodes': [
+                {
+                    'text': "系統設定",
+                    'nodes': [
+                        {
+                            'text': "功能管理",
+                            'nodes':[
+                                {
+                                    'text': "功能管理1"
+                                },
+                                {
+                                    'text': "功能管理1"
+                                },
+                                {
+                                    'text': "功能管理1"
+                                }
+                            ]
+                        },
+                        {
+                            'text': "角色管理"
+                        },
+                        {
+                            'text': "組織管理"
+                        },
+                        {
+                            'text': "登錄瀏覽日誌"
+                        }
+                    ]
+                },
+                {
+                    'text': "安控模組",
+                    'nodes': [
+                        {
+                            'text': "用戶管理"
+                        },
+                        {
+                            'text': "修改密碼"
+                        }
+                    ]
+                },
+                {
+                    'text': "設定模組",
+                    'nodes': [
+                        {
+                            'text': "課程滿意度調查問項"
+                        },
+                        {
+                            'text': "次集團事業群設定"
+                        },
+                        {
+                            'text': "資位表設定"
+                        },
+                        {
+                            'text': "技委會設定"
+                        }
+                    ]
+                },
+                {
+                    'text': "消息管理",
+                    'nodes': [
+                        {
+                            'text': "公告消息"
+                        }
+                    ]
+                },
+                {
+                    'text': "課程管理",
+                    'nodes': [
+                        {
+                            'text': "開辦課程"
+                        },
+                        {
+                            'text': "管理開辦課程"
+                        },
+                        {
+                            'text': "教育訓練出勤比對"
+                        },
+                        {
+                            'text': "課程討論區列表"
+                        }
+                    ]
+                },
+                {
+                    'text': "教室管理",
+                    'nodes': [
+                        {
+                            'text': "會議室/教室預約列表"
+                        }
+                    ]
+                },
+                {
+                    'text': "講師資料庫",
+                    'nodes': [
+                        {
+                            'text': "講師列表"
+                        }
+                    ]
+                },
+                {
+                    'text': "報表模組",
+                    'nodes': [
+                        {
+                            'text': "課程滿意度問卷報表"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]; */
+    var currentLevel = 1;
+    $(document).ready(function () {
+        //myTree = JSON.parse(myTree);
+        createMessageChoose(myTree, "#selectContent", "#selectId");
+    });
+
+    function createMessageChoose(tree, selectContent, selectId){
+        for(var index in tree){
+            var intentStr = "";//根據層級，控制縮進
+            var iconClass = "";//加減號標誌
+            var status = "hide";//標誌當前狀態，默認為hide
+            var nodes = tree[index].nodes;//獲取子節點
+            var hasChild = "yes";//是否拥有子节点，默认为no
+            if(!nodes){
+                hasChild = "no";
+                intentStr += "<span class='intent'>&emsp;</span>";//增加一個縮進，對齊顯示同級節點
+            }else{
+            	iconClass = "<span class='icon expand-icon glyphicon glyphicon-plus'></span>";//加號標誌
+            }
+            if(currentLevel == 1 && nodes){
+                iconClass = "<span class='icon expand-icon glyphicon glyphicon-minus'></span>";//減號標誌
+                status = "show";
+            }else if(currentLevel == 2 && nodes){
+                iconClass = "<span class='icon expand-icon glyphicon glyphicon-plus'></span>";//加號標誌
+            }
+            for(var i = 0; i < currentLevel; i++){
+                intentStr += "<span class='intent'>&emsp;</span>";
+            }
+
+            var innerHtml = "<div onclick='treeControl(this,\"" + selectContent + "\",\"" + selectId +"\")' status='" + status + "' tree-level='"  
+            	+ currentLevel + "' class='treeLevel level" + currentLevel + "' targetContent='" + tree[index].text + "' hasChild='" + hasChild 
+            	+"' targetId='" + tree[index].uniqueId + "'>" + intentStr + iconClass +  "<span class='treeContent'>" + tree[index].text +"</span></div>";
+            $("#uniqueTree").append(innerHtml);
+            if(nodes){
+                currentLevel++;
+                createMessageChoose(nodes, selectContent, selectId);
+                currentLevel--;
+            }
+        }
+    }
+
+    function treeControl(target, selectContent, selectId) {
+        var next = $(target).next();
+        $(".treeContent").css("backgroundColor", "#ffffff");
+        $(target).children(".treeContent").css("backgroundColor", "#337AB7");//點擊改變背景顏色
+        $(selectContent).val($(target).attr("targetContent"));
+        $(selectId).val($(target).attr("targetId"));
+
+        if ($(target).attr("status") == "hide") {
+            while (next.length != 0 && (next.attr("tree-level") > $(target).attr("tree-level"))) {
+                var level = $(target).attr("tree-level");
+                var nextLevel = next.attr("tree-level");
+                if (nextLevel - level == 1) {//只展示二級目錄
+                    next.show();
+                    iconControl(next);
+                }
+                next = next.next();
+            }
+            $(target).attr("status", "show");
+        } else {
+            while (next.length != 0 && (next.attr("tree-level") > $(target).attr("tree-level"))) {
+                next.hide();
+                next.attr("status", "hide");
+                next = next.next();
+                iconControl(next);
+            }
+            $(target).attr("status", "hide");
+        }
+        iconControl(target);
+
+    }
+
+    function iconControl(target){
+        var icon = $(target).children(".icon");
+        if($(target).attr("status") == "show" && $(target).attr("hasChild") == "yes"){
+            icon.removeClass("glyphicon-plus");
+            icon.addClass("glyphicon-minus");
+        }else if ($(target).attr("status") == "hide" && $(target).attr("hasChild") == "yes"){
+            icon.removeClass("glyphicon-minus");
+            icon.addClass("glyphicon-plus");
+        }
+    }
+</script>

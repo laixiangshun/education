@@ -1,0 +1,141 @@
+package com.foxera.models;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Notice entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "NOTICE", schema = "TRAIN")
+public class Notice implements java.io.Serializable {
+
+	// Fields
+
+	private Long announcementid;
+	private String announcementname;
+	private String content;
+	private Long publicby;
+	private Date createdate;
+	private Long modifiedby;
+	private Date modifydate;
+	private Long status;
+	private Long istop;
+
+	// Constructors
+
+	/** default constructor */
+	public Notice() {
+	}
+
+	/** minimal constructor */
+	public Notice(Long announcementid) {
+		this.announcementid = announcementid;
+	}
+
+	/** full constructor */
+	public Notice(Long announcementid, String announcementname, String content,
+			Long publicby, Date createdate, Long modifiedby, Date modifydate,
+			Long status, Long istop) {
+		this.announcementid = announcementid;
+		this.announcementname = announcementname;
+		this.content = content;
+		this.publicby = publicby;
+		this.createdate = createdate;
+		this.modifiedby = modifiedby;
+		this.modifydate = modifydate;
+		this.status = status;
+		this.istop = istop;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "ANNOUNCEMENTID", unique = true, nullable = false, precision = 18, scale = 0)
+	public Long getAnnouncementid() {
+		return this.announcementid;
+	}
+
+	public void setAnnouncementid(Long announcementid) {
+		this.announcementid = announcementid;
+	}
+
+	@Column(name = "ANNOUNCEMENTNAME", length = 150)
+	public String getAnnouncementname() {
+		return this.announcementname;
+	}
+
+	public void setAnnouncementname(String announcementname) {
+		this.announcementname = announcementname;
+	}
+
+	@Column(name = "CONTENT", length = 1500)
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@Column(name = "PUBLICBY", precision = 18, scale = 0)
+	public Long getPublicby() {
+		return this.publicby;
+	}
+
+	public void setPublicby(Long publicby) {
+		this.publicby = publicby;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "MODIFIEDBY", precision = 18, scale = 0)
+	public Long getModifiedby() {
+		return this.modifiedby;
+	}
+
+	public void setModifiedby(Long modifiedby) {
+		this.modifiedby = modifiedby;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "MODIFYDATE", length = 7)
+	public Date getModifydate() {
+		return this.modifydate;
+	}
+
+	public void setModifydate(Date modifydate) {
+		this.modifydate = modifydate;
+	}
+
+	@Column(name = "STATUS", precision = 18, scale = 0)
+	public Long getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Long status) {
+		this.status = status;
+	}
+
+	@Column(name = "ISTOP", precision = 18, scale = 0)
+	public Long getIstop() {
+		return this.istop;
+	}
+
+	public void setIstop(Long istop) {
+		this.istop = istop;
+	}
+
+}

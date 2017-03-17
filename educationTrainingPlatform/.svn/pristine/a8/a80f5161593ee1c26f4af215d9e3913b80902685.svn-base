@@ -1,0 +1,15 @@
+package com.foxera.background.dao;
+
+import java.util.List;
+
+import com.foxera.models.Teacherinfo;
+
+public interface TeacherDataDao {
+
+	public boolean insertTeacherData(Teacherinfo teacherinfo);
+
+	public List<Teacherinfo> selectTeacherData();
+
+	public List<Teacherinfo> selectTeacherData(Integer teacherid);
+
+}

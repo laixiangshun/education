@@ -1,0 +1,120 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Rolefunctional entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "ROLEFUNCTIONAL", schema = "TRAIN")
+public class Rolefunctional implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal rfId;
+	private BigDecimal functionid;
+	private BigDecimal roleid;
+	private BigDecimal createuser;
+	private Date createdate;
+	private BigDecimal edituser;
+	private Date editdate;
+
+	// Constructors
+
+	/** default constructor */
+	public Rolefunctional() {
+	}
+
+	/** minimal constructor */
+	public Rolefunctional(BigDecimal rfId) {
+		this.rfId = rfId;
+	}
+
+	/** full constructor */
+	public Rolefunctional(BigDecimal rfId, BigDecimal functionid,
+			BigDecimal roleid, BigDecimal createuser, Date createdate,
+			BigDecimal edituser, Date editdate) {
+		this.rfId = rfId;
+		this.functionid = functionid;
+		this.roleid = roleid;
+		this.createuser = createuser;
+		this.createdate = createdate;
+		this.edituser = edituser;
+		this.editdate = editdate;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "RF_ID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getRfId() {
+		return this.rfId;
+	}
+
+	public void setRfId(BigDecimal rfId) {
+		this.rfId = rfId;
+	}
+
+	@Column(name = "FUNCTIONID", precision = 22, scale = 0)
+	public BigDecimal getFunctionid() {
+		return this.functionid;
+	}
+
+	public void setFunctionid(BigDecimal functionid) {
+		this.functionid = functionid;
+	}
+
+	@Column(name = "ROLEID", precision = 22, scale = 0)
+	public BigDecimal getRoleid() {
+		return this.roleid;
+	}
+
+	public void setRoleid(BigDecimal roleid) {
+		this.roleid = roleid;
+	}
+
+	@Column(name = "CREATEUSER", precision = 22, scale = 0)
+	public BigDecimal getCreateuser() {
+		return this.createuser;
+	}
+
+	public void setCreateuser(BigDecimal createuser) {
+		this.createuser = createuser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "EDITUSER", precision = 22, scale = 0)
+	public BigDecimal getEdituser() {
+		return this.edituser;
+	}
+
+	public void setEdituser(BigDecimal edituser) {
+		this.edituser = edituser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "EDITDATE", length = 7)
+	public Date getEditdate() {
+		return this.editdate;
+	}
+
+	public void setEditdate(Date editdate) {
+		this.editdate = editdate;
+	}
+
+}

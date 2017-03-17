@@ -1,0 +1,15 @@
+package com.foxera.background.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.foxera.background.dao.RoleDao;
+import com.foxera.background.service.SystemSetRoleService;
+
+@Transactional
+@Service("SystemSetRoleService")
+public class SystemSetRoleServiceImpl implements SystemSetRoleService{
+	@Autowired
+	private RoleDao roleDao;
+}

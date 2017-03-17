@@ -1,0 +1,47 @@
+package com.foxera.background.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.foxera.background.dao.FunctionDao;
+import com.foxera.models.Functionalinfo;
+
+@Repository("functiondao")
+public class FunctionDaoImpl implements FunctionDao{
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public boolean insertFunction(Functionalinfo functionalinfo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteFunction(Functionalinfo functionalinfo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateFunction(Functionalinfo functionalinfo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Functionalinfo> getFunctions(int index, int pagesize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Functionalinfo> getFunctions(long modulecode,
+			String functionname, long parentfunc, int index, int pagesize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

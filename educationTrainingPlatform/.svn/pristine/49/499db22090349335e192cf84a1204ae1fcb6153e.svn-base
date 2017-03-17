@@ -1,0 +1,17 @@
+package com.foxera.background.service;
+
+import java.util.List;
+
+import com.foxera.models.Teacherinfo;
+
+
+public interface TeacherDataService {
+
+	public List<Teacherinfo> getTeacherData();
+	public List<Teacherinfo> getTeacherData(Integer teacherid);
+	public boolean addTeacherInfo(Teacherinfo teacherinfo);
+
+
+	
+
+}

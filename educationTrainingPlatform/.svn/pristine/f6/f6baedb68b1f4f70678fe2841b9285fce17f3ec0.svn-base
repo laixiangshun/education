@@ -1,0 +1,69 @@
+package com.foxera.background.service;
+
+import java.util.List;
+
+import com.foxera.models.Functionalinfo;
+
+/**
+ * 系统设定<b>功能管理</b>service
+ * @author fox
+ *
+ */
+public interface SystemSetFunctionService {
+	/**
+	 * 分页查询所有功能信息
+	 * @param index
+	 * @param pagesize
+	 * @return
+	 */
+	public List<Functionalinfo> getFunctionalinfos(int index,int pagesize);
+	
+	/**
+	 * 按条件分页查询所有功能信息
+	 * @param modulecode 模组代码
+	 * @param functionname 功能名称
+	 * @param parentfunc 父模组
+	 * @param index
+	 * @param pagesize
+	 * @return
+	 */
+	public List<Functionalinfo> getFunctionalinfos(String modulecode,String functionname,String parentfunc,int index,int pagesize);
+
+	/**
+	 * 新增功能资料
+	 * @param modulecode 模组代码
+	 * @param menuorder 顺序号
+	 * @param parentfunc 父模组
+	 * @param functionname 功能名称
+	 * @param urls 功能网页地址
+	 * @param description 模组描述
+	 * @param functioncode 功能码
+	 * @param functiondesc 功能描述
+	 * @param createuser 创建者
+	 * @return
+	 */
+	public boolean addFunc(String modulecode,String menuorder,String parentfunc,String functionname,String urls,String description,String functioncode,String functiondesc,long createuser);
+	
+	/**
+	 * 根据functionid查询function（修改function功能）
+	 * @param functionid
+	 * @return
+	 */
+	public Functionalinfo getFunctionalinfo(long functionid);
+	
+	/**
+	 * 修改function
+	 * @param functionid
+	 * @param modulecode
+	 * @param menuorder
+	 * @param parentfunc
+	 * @param functionname
+	 * @param urls
+	 * @param description
+	 * @param functioncode
+	 * @param functiondesc
+	 * @param edituser
+	 * @return
+	 */
+	public boolean modifyFunc(String functionid,String modulecode,String menuorder,String parentfunc,String functionname,String urls,String description,String functioncode,String functiondesc,long edituser);
+}

@@ -1,0 +1,17 @@
+package com.foxera.background.service;
+
+import java.util.List;
+
+import com.foxera.models.Functionalinfo;
+
+/**
+ * 系统设定<b>功能管理</b>service
+ * @author fox
+ *
+ */
+public interface SystemSetFunctionService {
+	public List<Functionalinfo> getFunctionalinfos(int index,int pagesize);
+	
+	
+
+}

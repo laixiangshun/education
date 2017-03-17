@@ -1,0 +1,62 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
+<html>
+  <head>
+  	<title>userManagePopView</title>
+  	<style type="text/css">
+  		.form-control{
+            width: 190px;
+            display: inline-block;
+        }
+
+        .infotitle {
+            width: 150px;
+            text-align: right;
+            display: inline-block;
+        }
+        .showinfo{
+            margin-top: 10px;
+        }
+  	</style>
+  </head>
+  <body>
+  	<div class="showinfo">
+        <p class="infotitle">工號<font color="red"> *</font>：</p>
+        <input type="text" class="form-control">
+    </div>
+    <div class="showinfo">
+        <p class="infotitle">姓名<font color="red"> *</font>：</p>
+        <input type="text" class="form-control">
+    </div>
+    <div class="showinfo">
+        <p class="infotitle">角色<font color="red"> *</font>：</p>
+        <select class="form-control">
+        	<option>中央人資</option>
+        	<option>。。。</option>
+        </select>
+    </div>
+    <div class="showinfo text-btn-group">
+        <p class="infotitle">單位<font color="red"> *</font>：</p>
+        <input type="text" class="form-control" style="width: 165px; margin-left: 5px;">
+        <button type="button" class="btn btn-xs btn-primary  glyphicon glyphicon-search"
+                onclick="popOrganizationManageModal
+                ('${path}/background/organizationManageChoose.html', '資料選擇器', 'search-choose')">
+        </button>
+    </div>
+    <div class="showinfo">
+        <p class="infotitle">分機<font color="red"> *</font>：</p>
+        <input type="text" class="form-control">
+    </div>
+    <div class="showinfo">
+        <p class="infotitle">電子郵箱<font color="red"> *</font>：</p>
+        <input type="text" class="form-control">
+    </div>
+    <div class="showinfo">
+        <p class="infotitle">前台集體報名權限<font color="red"> *</font>：</p>
+        <select class="form-control">
+        	<option value="N" selected="selected">否</option>
+        	<option value="Y">是</option>
+        </select>
+    </div>
+  </body>
+</html>

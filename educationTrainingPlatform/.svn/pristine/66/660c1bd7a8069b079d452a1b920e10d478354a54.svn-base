@@ -1,0 +1,79 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../included/bootstrap_lib.jsp" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index-front</title>    
+    <style type="text/css">
+        .nav-btn{
+            width: 100%;
+            text-align: center;
+            display: block;
+            background-color: #ffffff;
+            color: #000000;
+        }
+        .nav-btn:hover{
+            background-color: rgba(204,204,204,0.3);
+        }
+        h1{
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div >
+        <div class="header" id="header">
+        	<jsp:include page="../tile/header.jsp"></jsp:include>
+        </div>
+        <div class="main-body">
+            <div class="main-body-left" id="sidebar">
+                <!--导航-->
+                <button class="btn nav-btn" onclick="navClick(this, '${path}/foreground/courseNotice.html')" value="課程公告">課程公告</button>
+                <button class="btn nav-btn" onclick="navClick(this, '${path}/foreground/roomReservation.html')" value="會議室/教室預約">會議室/教室預約</button>
+                <button class="btn nav-btn" onclick="navClick(this, '${path}/foreground/courseList.html')" value="課程報名">課程報名</button>
+                <button class="btn nav-btn" onclick="navClick(this)" value="個人課程管理">個人課程管理</button>
+                <button class="btn nav-btn" onclick="navClick(this, '${path}/foreground/courseDiscuss.html')" value="課程討論版">課程討論版</button>
+                <button class="btn nav-btn" onclick="navClick(this)" value="講師資訊">講師資訊</button>
+                <button class="btn nav-btn" onclick="navClick(this)" value="登出">登出</button>
+                <!--导航-->
+            </div>
+            <div class="main-body-right" id="content">
+            	<jsp:include page="../tile/welcome.jsp"></jsp:include>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+        	<jsp:include page="../tile/footer.jsp"></jsp:include>
+        </div>
+    </div>
+    <script type="text/javascript">        
+		$(document).ready(function(){
+			footerPosition();
+		});
+        function footerPosition() {
+            /* footer自适应页面高度，始终位于页面底部 */
+            var winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+            var headerHeight = $("#header").height();
+            var footerHeight = $("#footer").height();
+            //alert(headerHeight + "," + footerHeight);
+            $(".main-body").css("minHeight", winHeight - headerHeight - footerHeight -10);
+            /* footer自适应页面高度，始终位于页面底部 */
+        }
+
+        function navClick(target, url) {
+            $("#sidebar button").css("backgroundColor", "#ffffff");
+            $("#sidebar button").css("color", "#000000");
+            $(target).css("backgroundColor", "#337AB7");
+            $(target).css("color", "#ffffff");
+            if(url){
+                //alert(target.getAttribute("url"));
+                $("#content").load(url);
+            }
+            else{
+                $("#content").html("<h1>暫無子頁面！！！</h1>");
+            }
+        }
+    </script>
+</body>
+</html>

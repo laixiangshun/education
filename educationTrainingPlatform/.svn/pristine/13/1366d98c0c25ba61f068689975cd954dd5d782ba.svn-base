@@ -1,0 +1,16 @@
+package com.foxera.background.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.foxera.background.dao.FunctionDao;
+import com.foxera.background.service.SystemSetFunctionService;
+
+@Transactional
+@Service("SystemSetFunctionService")
+public class SystemSetFunctionServiceImpl implements SystemSetFunctionService{
+	@Autowired
+	private FunctionDao functionDao;
+	
+}

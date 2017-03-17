@@ -1,0 +1,41 @@
+package com.foxera.viewmodels;
+
+public class RoleFunction {
+	private Long roleId;
+	private String roleName;
+	private String roleCode;
+	private String functionName;
+	private Long functionid;
+	
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleid) {
+		this.roleId = roleid;
+	}
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+	public String getRoleCode() {
+		return roleCode;
+	}
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+	public String getFunctionName() {
+		return functionName;
+	}
+	public void setFunctionName(String functionName) {
+		this.functionName = functionName;
+	}
+	public Long getFunctionid() {
+		return functionid;
+	}
+	public void setFunctionid(Long functionid) {
+		this.functionid = functionid;
+	}
+	
+}

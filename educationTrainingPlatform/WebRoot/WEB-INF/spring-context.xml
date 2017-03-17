@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd">
+
+	<!-- 注解扫描包 -->
+	<context:component-scan base-package="com.foxera" />
+	<!-- 开启注解 -->
+	<context:annotation-config />
+
+	<!--数据源-mysql -->
+	<!-- <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/springmvcdemo?useUnicode=true&amp;characterEncoding=UTF-8" />
+		<property name="username" value="fox" />
+		<property name="password" value="940815" />
+	</bean> -->
+
+	<!--数据源-oracle -->
+	<!-- <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:springmvcdemo" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.130.193.250:6664:training" />
+		<property name="username" value="train" />
+		<property name="password" value="train147" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="maxWait" value="3000" />
+		<property name="defaultAutoCommit" value="true" />
+		
+		<!-- 是否自动回收超时连接, 移除无引用连接（那些没有close的连接） -->
+		<property name="removeAbandoned" value="true"></property>
+		<!-- 超时时间(以秒数为单位)  -->
+		<property name="removeAbandonedTimeout" value="180"></property>
+		<!-- 如下配置来配置socket连接/读超时：  -->
+		<property name="connectionProperties" value="Oracle.NET.CONNECT_TIMEOUT=2000;oracle.jdbc.ReadTimeout=2000"></property>
+       <!--  numTestsPerEvictionRun个连接，只要发现连接失效，就将其移除再重新创建  -->
+        <property name= "numTestsPerEvictionRun" value="30" /> 
+        <!-- expire connection 定时器周期 ,每timeBetweenEvictionRunsMillis毫秒秒检查一次连接池中空闲的连接,把空闲时间超过minEvictableIdleTimeMillis毫秒的连接断开,直到连接池中的连接数到minIdle为止  -->
+        <property name="timeBetweenEvictionRunsMillis" value="1200000" />
+        <!-- 连接池中连接可空闲的时间,毫秒。  一个连接空闲多久从池中移除 -->
+        <property name="minEvictableIdleTimeMillis" value="60000" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop> -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">false</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+		<!--自动扫描（实体类）注解包 -->
+		<property name="packagesToScan" value="com.foxera.*"></property>
+	</bean>
+</beans>

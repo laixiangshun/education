@@ -1,0 +1,208 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<style type="text/css">
+    #uniqueTree{
+        text-align: left;
+        max-height: 400px;
+        overflow-y: scroll;
+    }
+</style>
+<div id="uniqueTree">
+
+</div>
+<input id="selectContent" value="" type="hidden"/>
+<input id="selectId" value="" type="hidden"/>
+
+<script type="text/javascript">
+    var myTree = [
+        {
+            'text': "æè²è¨ç·´å¹³å°ç³»çµ±",
+            'uniqueId': "0",
+            'nodes': [
+                {
+                    'text': "ç³»çµ±è¨­å®",
+                    'nodes': [
+                        {
+                            'text': "åè½ç®¡ç",
+                            'nodes':[
+                                {
+                                    'text': "åè½ç®¡ç1"
+                                },
+                                {
+                                    'text': "åè½ç®¡ç1"
+                                },
+                                {
+                                    'text': "åè½ç®¡ç1"
+                                }
+                            ]
+                        },
+                        {
+                            'text': "è§è²ç®¡ç"
+                        },
+                        {
+                            'text': "çµç¹ç®¡ç"
+                        },
+                        {
+                            'text': "ç»éçè¦½æ¥èª"
+                        }
+                    ]
+                },
+                {
+                    'text': "å®æ§æ¨¡çµ",
+                    'nodes': [
+                        {
+                            'text': "ç¨æ¶ç®¡ç"
+                        },
+                        {
+                            'text': "ä¿®æ¹å¯ç¢¼"
+                        }
+                    ]
+                },
+                {
+                    'text': "è¨­å®æ¨¡çµ",
+                    'nodes': [
+                        {
+                            'text': "èª²ç¨æ»¿æåº¦èª¿æ¥åé "
+                        },
+                        {
+                            'text': "æ¬¡éåäºæ¥­ç¾¤è¨­å®"
+                        },
+                        {
+                            'text': "è³ä½è¡¨è¨­å®"
+                        },
+                        {
+                            'text': "æå§æè¨­å®"
+                        }
+                    ]
+                },
+                {
+                    'text': "æ¶æ¯ç®¡ç",
+                    'nodes': [
+                        {
+                            'text': "å¬åæ¶æ¯"
+                        }
+                    ]
+                },
+                {
+                    'text': "èª²ç¨ç®¡ç",
+                    'nodes': [
+                        {
+                            'text': "éè¾¦èª²ç¨"
+                        },
+                        {
+                            'text': "ç®¡çéè¾¦èª²ç¨"
+                        },
+                        {
+                            'text': "æè²è¨ç·´åºå¤æ¯å°"
+                        },
+                        {
+                            'text': "èª²ç¨è¨è«ååè¡¨"
+                        }
+                    ]
+                },
+                {
+                    'text': "æå®¤ç®¡ç",
+                    'nodes': [
+                        {
+                            'text': "æè­°å®¤/æå®¤é ç´åè¡¨"
+                        }
+                    ]
+                },
+                {
+                    'text': "è¬å¸«è³æåº«",
+                    'nodes': [
+                        {
+                            'text': "è¬å¸«åè¡¨"
+                        }
+                    ]
+                },
+                {
+                    'text': "å ±è¡¨æ¨¡çµ",
+                    'nodes': [
+                        {
+                            'text': "èª²ç¨æ»¿æåº¦åå·å ±è¡¨"
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+    var currentLevel = 1;
+    $(document).ready(function () {
+        //myTree = JSON.parse(myTree);
+        createMessageChoose(myTree, "#selectContent", "#selectId");
+    });
+
+    function createMessageChoose(tree, selectContent, selectId){
+        for(var index in tree){
+            var intentStr = "";//æ ¹æå±¤ç´ï¼æ§å¶ç¸®é²
+            var iconClass = "icon expand-icon glyphicon ";//å æ¸èæ¨èª
+            var status = "hide";//æ¨èªç¶åçæï¼é»èªçºhide
+            var nodes = tree[index].nodes;//ç²åå­ç¯é»
+            var hasChild = "yes";//æ¯å¦æ¥æå­èç¹ï¼é»è®¤ä¸ºno
+            if(!nodes){
+                hasChild = "no";
+            }
+            if(currentLevel == 1){
+                iconClass += "glyphicon-minus";//æ¸èæ¨èª
+                status = "show";
+            }else if(currentLevel == 2){
+                iconClass += "glyphicon-plus";//å èæ¨èª
+            }
+            for(var i = 0; i < currentLevel; i++){
+                intentStr += "<span class='intent'>&emsp;&emsp;</span>";
+            }
+
+            var innerHtml = "<div onclick='treeControl(this,\"" + selectContent + "\",\"" + selectId +"\")' status='" + status + "' tree-level='"  + currentLevel + "' class='treeLevel level" + currentLevel + "' targetContent='" + tree[index].text + "' hasChild='" + hasChild +"' targetId='" + tree[index].uniqueId + "'>" + intentStr + "<span class='" + iconClass
+                + "'></span><span class='treeContent'>" + tree[index].text +"</span></div>";
+            $("#uniqueTree").append(innerHtml);
+            if(nodes){
+                currentLevel++;
+                createMessageChoose(nodes, selectContent, selectId);
+                currentLevel--;
+            }
+        }
+    }
+
+    function treeControl(target, selectContent, selectId) {
+        var next = $(target).next();
+        $(".treeContent").css("backgroundColor", "#ffffff");
+        $(target).children(".treeContent").css("backgroundColor", "#337AB7");//é»ææ¹è®èæ¯é¡è²
+        $(selectContent).val($(target).attr("targetContent"));
+        $(selectId).val($(target).attr("targetId"));
+
+        if ($(target).attr("status") == "hide") {
+            while (next.length != 0 && (next.attr("tree-level") > $(target).attr("tree-level"))) {
+                var level = $(target).attr("tree-level");
+                var nextLevel = next.attr("tree-level");
+                if (nextLevel - level == 1) {//åªå±ç¤ºäºç´ç®é
+                    next.show();
+                    iconControl(next);
+                }
+                next = next.next();
+            }
+            $(target).attr("status", "show");
+        } else {
+            while (next.length != 0 && (next.attr("tree-level") > $(target).attr("tree-level"))) {
+                next.hide();
+                next.attr("status", "hide");
+                next = next.next();
+                iconControl(next);
+            }
+            $(target).attr("status", "hide");
+        }
+        iconControl(target);
+
+    }
+
+    function iconControl(target){
+        var icon = $(target).children(".icon");
+        if($(target).attr("status") == "show" && $(target).attr("hasChild") == "yes"){
+            icon.removeClass("glyphicon-plus");
+            icon.addClass("glyphicon-minus");
+        }else if ($(target).attr("status") == "hide" && $(target).attr("hasChild") == "yes"){
+            icon.removeClass("glyphicon-minus");
+            icon.addClass("glyphicon-plus");
+        }
+    }
+</script>

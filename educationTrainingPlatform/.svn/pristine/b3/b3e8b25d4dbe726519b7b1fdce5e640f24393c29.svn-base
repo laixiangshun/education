@@ -1,0 +1,64 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-y: scroll;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+a{cursor: pointer;}
+h1{margin-top: 0;}
+.header{
+    position: relative;
+    margin-bottom: 10px;
+}
+.header-logo h1{
+    font-size: 44px;
+    margin-top: 18px;
+}
+
+.header, .header .container-fluid{
+    height: 80px;
+}
+.header .container-fluid{ background-color: #337AB7; color: #ffffff}
+
+.main-body{
+    width: 100%;
+    min-height: 675px;
+    overflow: hidden;
+}
+.footer{
+    position: relative;
+    height: 50px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #337AB7;
+}
+.footer p{
+    position: relative;
+    font-size: 16px;
+    top: 17px;
+}
+.main-body-left{
+    width: 18%;
+    float: left;
+}
+.main-body-left li{
+    position: relative;
+}
+.main-body-right{
+    margin-left: 1%;
+    width: 80%;
+    float: left;
+    min-height: 654px;
+}
+
+.header-logo{
+    float: left;
+}
+.welcome-massage{//頭部歡迎語句
+    float: right;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+}

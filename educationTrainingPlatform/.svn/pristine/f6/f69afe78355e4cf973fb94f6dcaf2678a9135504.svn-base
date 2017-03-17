@@ -1,0 +1,25 @@
+package com.foxera.viewmodels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class QueryCondition {
+	
+	public QueryCondition()
+	{
+		qProperty=new ArrayList<QueryProperty>();
+	}
+	
+	private List<QueryProperty> qProperty;
+
+	public List<QueryProperty> getqProperty() {
+		return qProperty;
+	}
+
+	public void setqProperty(List<QueryProperty> qProperty) {
+		this.qProperty = qProperty;
+	}
+	
+
+
+}

@@ -1,0 +1,69 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * Evltype entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "EVLTYPE", schema = "TRAIN")
+public class Evltype implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal evlid;
+	private String evlname;
+	private BigDecimal contenttype;
+
+	// Constructors
+
+	/** default constructor */
+	public Evltype() {
+	}
+
+	/** minimal constructor */
+	public Evltype(BigDecimal evlid) {
+		this.evlid = evlid;
+	}
+
+	/** full constructor */
+	public Evltype(BigDecimal evlid, String evlname, BigDecimal contenttype) {
+		this.evlid = evlid;
+		this.evlname = evlname;
+		this.contenttype = contenttype;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "EVLID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getEvlid() {
+		return this.evlid;
+	}
+
+	public void setEvlid(BigDecimal evlid) {
+		this.evlid = evlid;
+	}
+
+	@Column(name = "EVLNAME", length = 150)
+	public String getEvlname() {
+		return this.evlname;
+	}
+
+	public void setEvlname(String evlname) {
+		this.evlname = evlname;
+	}
+
+	@Column(name = "CONTENTTYPE", precision = 22, scale = 0)
+	public BigDecimal getContenttype() {
+		return this.contenttype;
+	}
+
+	public void setContenttype(BigDecimal contenttype) {
+		this.contenttype = contenttype;
+	}
+
+}

@@ -1,0 +1,27 @@
+package com.foxera.background.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class TeacherDataController {
+	
+	@RequestMapping(value="/background/teacherSatisfySurvey.html",method=RequestMethod.GET)
+	public String TeacherSatisfySurvey(HttpServletRequest request,HttpServletResponse response){
+		return "background/teacherData/teacherSatisfySurvey";
+	}
+	
+	@RequestMapping(value="/background/classroomList.html",method=RequestMethod.GET)
+	public String ClassroomList(HttpServletRequest request,HttpServletResponse response){
+		return "background/classroomManage/classroomList";
+	}
+	
+	@RequestMapping(value="/background/createCourse.html",method=RequestMethod.GET)
+	public String CreateCourse(HttpServletRequest request,HttpServletResponse response){
+		return "background/courseManage/createCourse";
+	}
+}

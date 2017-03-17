@@ -1,0 +1,143 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Notice entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "NOTICE", schema = "TRAIN")
+public class Notice implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal announcementid;
+	private String announcementname;
+	private String content;
+	private BigDecimal publicby;
+	private Date createdate;
+	private BigDecimal modifiedby;
+	private Date modifydate;
+	private BigDecimal status;
+	private BigDecimal istop;
+
+	// Constructors
+
+	/** default constructor */
+	public Notice() {
+	}
+
+	/** minimal constructor */
+	public Notice(BigDecimal announcementid) {
+		this.announcementid = announcementid;
+	}
+
+	/** full constructor */
+	public Notice(BigDecimal announcementid, String announcementname,
+			String content, BigDecimal publicby, Date createdate,
+			BigDecimal modifiedby, Date modifydate, BigDecimal status,
+			BigDecimal istop) {
+		this.announcementid = announcementid;
+		this.announcementname = announcementname;
+		this.content = content;
+		this.publicby = publicby;
+		this.createdate = createdate;
+		this.modifiedby = modifiedby;
+		this.modifydate = modifydate;
+		this.status = status;
+		this.istop = istop;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "ANNOUNCEMENTID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getAnnouncementid() {
+		return this.announcementid;
+	}
+
+	public void setAnnouncementid(BigDecimal announcementid) {
+		this.announcementid = announcementid;
+	}
+
+	@Column(name = "ANNOUNCEMENTNAME", length = 150)
+	public String getAnnouncementname() {
+		return this.announcementname;
+	}
+
+	public void setAnnouncementname(String announcementname) {
+		this.announcementname = announcementname;
+	}
+
+	@Column(name = "CONTENT", length = 1500)
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@Column(name = "PUBLICBY", precision = 22, scale = 0)
+	public BigDecimal getPublicby() {
+		return this.publicby;
+	}
+
+	public void setPublicby(BigDecimal publicby) {
+		this.publicby = publicby;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "MODIFIEDBY", precision = 22, scale = 0)
+	public BigDecimal getModifiedby() {
+		return this.modifiedby;
+	}
+
+	public void setModifiedby(BigDecimal modifiedby) {
+		this.modifiedby = modifiedby;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "MODIFYDATE", length = 7)
+	public Date getModifydate() {
+		return this.modifydate;
+	}
+
+	public void setModifydate(Date modifydate) {
+		this.modifydate = modifydate;
+	}
+
+	@Column(name = "STATUS", precision = 22, scale = 0)
+	public BigDecimal getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(BigDecimal status) {
+		this.status = status;
+	}
+
+	@Column(name = "ISTOP", precision = 22, scale = 0)
+	public BigDecimal getIstop() {
+		return this.istop;
+	}
+
+	public void setIstop(BigDecimal istop) {
+		this.istop = istop;
+	}
+
+}

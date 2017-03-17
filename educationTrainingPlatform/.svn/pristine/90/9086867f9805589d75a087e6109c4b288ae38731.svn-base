@@ -1,0 +1,54 @@
+package com.foxera.background.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.foxera.background.dao.RoleDao;
+import com.foxera.models.Role;
+
+@Repository("RoleDao")
+public class RoleDaoImpl implements RoleDao{
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public boolean insertRole(Role role) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteRole(Role role) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean deleteRoles(long roleid) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateRole(Role role) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Role> getRoles(int index, int pagesize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Role> getRoles(String rolecode, String rolename,
+			long[] functionid, int index, int pagesize) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -1,0 +1,190 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Reservationinfo entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "RESERVATIONINFO", schema = "TRAIN")
+public class Reservationinfo implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal reserveid;
+	private BigDecimal meetingroomid;
+	private BigDecimal userid;
+	private Date useddate;
+	private Date begintime;
+	private Date endtime;
+	private String aim;
+	private Date createdate;
+	private String createrid;
+	private Date modifydate;
+	private BigDecimal modfierid;
+	private BigDecimal status;
+	private String rejectreason;
+
+	// Constructors
+
+	/** default constructor */
+	public Reservationinfo() {
+	}
+
+	/** minimal constructor */
+	public Reservationinfo(BigDecimal reserveid) {
+		this.reserveid = reserveid;
+	}
+
+	/** full constructor */
+	public Reservationinfo(BigDecimal reserveid, BigDecimal meetingroomid,
+			BigDecimal userid, Date useddate, Date begintime, Date endtime,
+			String aim, Date createdate, String createrid, Date modifydate,
+			BigDecimal modfierid, BigDecimal status, String rejectreason) {
+		this.reserveid = reserveid;
+		this.meetingroomid = meetingroomid;
+		this.userid = userid;
+		this.useddate = useddate;
+		this.begintime = begintime;
+		this.endtime = endtime;
+		this.aim = aim;
+		this.createdate = createdate;
+		this.createrid = createrid;
+		this.modifydate = modifydate;
+		this.modfierid = modfierid;
+		this.status = status;
+		this.rejectreason = rejectreason;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "RESERVEID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getReserveid() {
+		return this.reserveid;
+	}
+
+	public void setReserveid(BigDecimal reserveid) {
+		this.reserveid = reserveid;
+	}
+
+	@Column(name = "MEETINGROOMID", precision = 22, scale = 0)
+	public BigDecimal getMeetingroomid() {
+		return this.meetingroomid;
+	}
+
+	public void setMeetingroomid(BigDecimal meetingroomid) {
+		this.meetingroomid = meetingroomid;
+	}
+
+	@Column(name = "USERID", precision = 22, scale = 0)
+	public BigDecimal getUserid() {
+		return this.userid;
+	}
+
+	public void setUserid(BigDecimal userid) {
+		this.userid = userid;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "USEDDATE", length = 7)
+	public Date getUseddate() {
+		return this.useddate;
+	}
+
+	public void setUseddate(Date useddate) {
+		this.useddate = useddate;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BEGINTIME", length = 7)
+	public Date getBegintime() {
+		return this.begintime;
+	}
+
+	public void setBegintime(Date begintime) {
+		this.begintime = begintime;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ENDTIME", length = 7)
+	public Date getEndtime() {
+		return this.endtime;
+	}
+
+	public void setEndtime(Date endtime) {
+		this.endtime = endtime;
+	}
+
+	@Column(name = "AIM", length = 600)
+	public String getAim() {
+		return this.aim;
+	}
+
+	public void setAim(String aim) {
+		this.aim = aim;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "CREATERID", length = 150)
+	public String getCreaterid() {
+		return this.createrid;
+	}
+
+	public void setCreaterid(String createrid) {
+		this.createrid = createrid;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "MODIFYDATE", length = 7)
+	public Date getModifydate() {
+		return this.modifydate;
+	}
+
+	public void setModifydate(Date modifydate) {
+		this.modifydate = modifydate;
+	}
+
+	@Column(name = "MODFIERID", precision = 22, scale = 0)
+	public BigDecimal getModfierid() {
+		return this.modfierid;
+	}
+
+	public void setModfierid(BigDecimal modfierid) {
+		this.modfierid = modfierid;
+	}
+
+	@Column(name = "STATUS", precision = 22, scale = 0)
+	public BigDecimal getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(BigDecimal status) {
+		this.status = status;
+	}
+
+	@Column(name = "REJECTREASON", length = 1500)
+	public String getRejectreason() {
+		return this.rejectreason;
+	}
+
+	public void setRejectreason(String rejectreason) {
+		this.rejectreason = rejectreason;
+	}
+
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="loginLog">
+        <h3>登陸日誌瀏覽</h3>
+        <div class="search-div">
+            工號：
+            <input type="text" class="form-control" />
+            姓名：
+            <input type="text" class="form-control" />
+            登錄電腦IP：
+            <input type="text" class="form-control" />
+            角色：
+            <select class="form-control">
+                <option>ALL</option>
+                <option>角色1</option>
+                <option>角色2</option>
+                <option>角色3</option>
+            </select>
+        </div>
+    </div>
+</body>
+</html>

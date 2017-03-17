@@ -1,0 +1,146 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="organizationManage">
+    <h3>次集團事業群管理</h3>
+    <div class="search-div">
+        <div class="search-div">
+            組織代碼：
+            <input type="text" class="form-control" />
+            組織名稱：
+            <input type="text" class="form-control" />
+            父組織：
+            <div class="text-btn-group">
+                <input id="rolePermission" type="text" class="form-control" />
+                <button class="btn btn-xs btn-primary  glyphicon glyphicon-search"
+                        onclick="popOrganizationManageModal('${path}/background/organizationManageChoose.html', '父組織', 'search-choose')">
+                </button>
+            </div>
+            是否有效：
+            <select class="form-control">
+                <option>ALL</option>
+                <option>Y</option>
+                <option>N</option>
+            </select>
+            &emsp;<button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-search"></b>&nbsp;查詢</button>
+        </div>
+        <div class="search-div">
+            <button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-refresh"></b>&nbsp;重置</button>
+            <button class="btn btn-xs btn-primary" onclick="popOrganizationManageModal('${path}/background/organizationManageCreate.html', '新增次集團事業群', 'create')">
+                <b class="glyphicon glyphicon-plus-sign"></b>&nbsp;新增
+            </button>
+            <button class="btn btn-xs btn-primary" onclick="popOrganizationManageModal('${path}/background/organizationManageChoose.html', '修改次集團事業群', 'modify')">
+                <b class="glyphicon glyphicon-minus-sign"></b>&nbsp;修改
+            </button>
+            <button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-download-alt"></b>&nbsp;導出</button>
+        </div>
+    </div>
+    <div id="functionManageData">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+            <tr>
+                <th><input type="checkbox" value="all" id="selectAll"/></th>
+                <th>組織名稱</th>
+                <th>父組織</th>
+                <!-- <th>層級名稱</th> -->
+                <th>是否有效</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="checkbox" value="data1" id="data1"/></td>
+                <td>鴻海科技集團</td>
+                <td></td>
+                <!-- <td></td> -->
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" value="data2" id="data2"/></td>
+                <td>B次集團</td>
+                <td>鴻海科技集團</td>
+                <!-- <td></td> -->
+                <td>Y</td>
+            </tr>
+            <tr>
+                <td><input type="checkbox" value="data3" id="data3"/></td>
+                <td>IDSBG</td>
+                <td>B次集團</td>
+                <!-- <td></td> -->
+                <td>Y</td>
+            </tr>
+        </table>
+        <div class="page-div">
+            <ul class="pagination">
+                <li class="disabled"><a onclick="organizationManageSelectPage(this)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a onclick="organizationManageSelectPage(this)">1 <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="organizationManageSelectPage(this)">2</a></li>
+                <li><a onclick="organizationManageSelectPage(this)">3</a></li>
+                <li><a onclick="organizationManageSelectPage(this)">4</a></li>
+                <li><a onclick="organizationManageSelectPage(this)">5</a></li>
+                <li><span >...</span></li>
+                <li><a onclick="organizationManageSelectPage(this)">lastPage</a></li>
+                <li>
+                    <a onclick="organizationManageSelectPage(this)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div style="" class="modal fade" id="organizationManageModal" tabindex="-1" role="dialog" aria-labelledby="organizationManageModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" operation="" key="" id="organizationManageModalLabel"></h4>
+                </div>
+                <div  class="modal-body">
+                    加載中...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="commit">確定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+</div>
+<script type="text/javascript">
+    function popOrganizationManageModal(url, title, operation) {
+        //alert(operation);
+        $("#organizationManageModal").modal({backdrop: "static", keyboard: false});
+        $("#organizationManageModalLabel").html(title);
+        if(url){
+            $("#organizationManageModal .modal-body").load(url);
+        }else {
+            $("#organizationManageModal .modal-body").html("url為空，加載失敗...");
+        }
+    }
+    function organizationManageSelectPage(obj) {
+        /*翻页，获取数据，将其填充到页面上
+         *
+         *
+         */
+        $(".pagination li").removeClass("active");
+        $(obj).parent().addClass("active");//获取当前a标签的父元素li标签，加入active类，使其处于选中状态
+    }
+    $('#organizationManageModal').on('hide.bs.modal', function () {
+        // 执行一些动作...
+        $("#functionManageModal .modal-body").html("");//關閉時清空modal-body的內容
+        /*$("#organizationManageModalLabel").removeAttr("operation");//清除標誌
+        $("#organizationManageModalLabel").removeAttr("key");//清除標誌*/
+    })
+</script>
+</body>
+</html>

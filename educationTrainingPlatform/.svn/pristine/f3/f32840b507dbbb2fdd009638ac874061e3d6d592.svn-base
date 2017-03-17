@@ -1,0 +1,28 @@
+package com.foxera.background.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.foxera.background.dao.TeacherDataDao;
+import com.foxera.models.Teacherinfo;
+
+@Repository("userTypeDao")
+public class TeacherDataDaoImpl implements TeacherDataDao{
+	@Autowired
+	private SessionFactory sessionFactory;
+	@Override
+	public List<Teacherinfo> selectTeacherData(){
+		return null;
+	}
+	@Override
+	public List<Teacherinfo> selectTeacherData(Integer teacherid){
+	   return null;	
+	}
+	@Override
+	public boolean insertTeacherData(Teacherinfo teacherinfo){
+		return false;
+	}
+}

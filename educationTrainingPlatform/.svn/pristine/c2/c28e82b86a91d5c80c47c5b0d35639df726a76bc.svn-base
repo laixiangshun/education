@@ -1,0 +1,282 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+    <title>Title</title>
+<head>
+<style type="text/css">
+    #instructorInformationInfoManage>div{
+        margin-bottom: 10px;
+        text-align:left;
+        margin-left: 100px;
+    }
+    #instructorInformationInfoManage .dataName{
+        display: inline-block;
+        width: 110px;
+         text-align:right;
+    }
+    #instructorInformationInfoManage input.form-control,
+    #instructorInformationInfoManage select.form-control{
+        width: 200px;
+    }
+    #instructorInformationInfoManage .text-btn-group input.form-control {
+        width: 450px;
+    }
+    #instructorInformationInfoManage textarea.form-control {
+        width: 450px;
+        display: inline-block;
+    }
+    #instructorInformationInfoManage #createPop{
+        display: none;
+        width: 100%;
+        position: fixed;
+        z-index: 10001;
+        left: 0;
+        background-color: #ffffff;
+        padding:0 15px;
+        border-radius: 5px;
+        box-shadow:0 0 10px #000000 ;
+        text-align: center;
+    }
+    #shade{
+        display: none;
+        z-index: 10000;
+        background-color: #000000;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+</style>
+</head>
+<body>
+<div id="instructorInformationInfoManage">
+	${requestScope.testData }
+    <div id="shade"></div>
+    <div>
+    <div><strong>基本資料</strong></div>
+    <span class="dataName">現職<font color="red">*</font>：</span> 
+     <input type="text" class="form-control"/>
+     </div>
+     <div>
+              <span class="dataName">講師類別<font color="red">*</font>：</span>
+             <select class="form-control">
+                <option>ALL</option>
+                <option>外部講師</option>
+                <option>內部講師</option>
+            </select>
+    </div>
+     <div>
+    <span class="dataName">最高學歷<font color="red">*</font>：</span> 
+      <input type="text" class="form-control"/>
+     </div>
+         <div>
+    <span class="dataName">次高學歷<font color="red">*</font>：</span> 
+      <input type="text" class="form-control"/>
+     </div>
+          <div>
+    <span class="dataName">證書編號：</span> 
+       <input type="text" class="form-control"/>
+     </div>
+      <div>
+      <span class="dataName">經歷：</span> 
+      <textarea  class="form-control"  rows="6" cols="70"  style="width:300px;vertical-align:top" maxlength="420" ></textarea>
+     </div>
+      <div>
+      <span class="dataName">專業領域：</span> 
+      <textarea  class="form-control"  rows="6" cols="70"  style="width:300px;vertical-align:top" maxlength="420" ></textarea>
+     </div>
+      <div>
+      <span class="dataName">授課實際：</span> 
+      <textarea  class="form-control"  rows="6" cols="70"  style="width:300px;vertical-align:top" maxlength="420" ></textarea>
+     </div>
+      <div>
+      <span class="dataName">備註：</span> 
+      <textarea  class="form-control"  rows="6" cols="70"  style="width:300px;vertical-align:top" maxlength="420" ></textarea>
+     </div>
+      <div>
+      <span class="dataName">平均滿意度<font color="red">*</font>：</span> 
+      <input type="text" class="form-control"/>
+     </div>
+      <div><strong>課程歷程</strong></div>
+           <div>
+      <span class="dataName">課程名稱<font color="red">*</font>：</span> 
+      <input type="text" class="form-control"/>
+     </div>
+          <div>
+      <span class="dataName">課程類別<font color="red">*</font>：</span> 
+      <input type="text" class="form-control"/>
+     </div>
+     <div>
+         課程日期時間起： <input id="txtcurriculuminfodateStart"   onfocus="selectDate('txtcurriculuminfodateStart');" type="text" class="form-control"/>
+     </div>
+     <div>
+          課程日期時間迄： <input id="txtcurriculuminfodateOver"   onfocus="selectDate('txtcurriculuminfodateOver');" type="text" class="form-control"/>
+     </div>   
+      <div class="search-div">
+        <button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-search"></b>&nbsp;查詢</button>
+        </div>
+        
+        <div id="instructorinformationManageData">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>課程名稱</th>
+                    <th>課程日期</th>
+                     <th>課程類別</th>
+                      <th>課程滿意度</th>
+                      <th>整體滿意度</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                     
+                 <td>
+                     <a  onclick="popinstructorinformationinfoModal('${path}/foreground/satisfactionQuestionnaire.html', '課程滿意度問卷', 'info')">勞工委員會</a>
+                </td>   
+                 <td>2011-10-20 10:22:33~2011-10-20 23:22:33</td> 
+                  <td>在職培訓</td>   
+                   <td>72分</td>
+                    <td>60分</td> 
+                </tr>
+            </tbody>
+        </table>
+        <div class="page-div">
+            <ul class="pagination">
+                <li class="disabled"><a onclick="instructorinformationinfoSelectPage(this)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a onclick="instructorinformationinfoSelectPage(this)">1 <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="instructorinformationinfoSelectPage(this)">2</a></li>
+                <li><a onclick="instructorinformationinfoSelectPage(this)">3</a></li>
+                <li><a onclick="instructorinformationinfoSelectPage(this)">4</a></li>
+                <li><a onclick="instructorinformationinfoSelectPage(this)">5</a></li>
+                <li><span >...</span></li>
+                <li><a onclick="instructorinformationinfoSelectPage(this)">lastPage</a></li>
+                <li>
+                    <a onclick="instructorinformationinfoSelectPage(this)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+        
+    <div id="createPop">					
+        <div id="createPop-body">
+        </div>
+        <div>
+            <button class="btn btn-primary" id="popCommit">確定</button>
+            <button class="btn" id="popClose" onclick="closePop()">關閉</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+    <div style="" class="modal fade" id="instructorinformationinfoModal" tabindex="-1" role="dialog" aria-labelledby="instructorinformationinfoModalLabel">
+        <div class="modal-dialog" role="document" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" operation="" key="" id="instructorinformationinfoModalLabel"></h4>
+                </div>
+                <div  class="modal-body">
+                    加載中...
+                </div>
+                 <div class="modal-footer" >
+                    <button type="button" class="btn btn-primary" id="commit">確定</button>
+                   
+                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+          
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+<script type="text/javascript">
+$('#commit').click(function () {
+        //alert("this is modal");
+        var opera=$("#instructorinformationinfoModalLabel").attr("operation");
+        if (opera == "create"){
+            //alert("create");
+            //alert($("#functionManagePop_modelID").val());
+        }else if(opera == "modify"){
+            //alert("modify");
+        } else {
+            //alert($("#selectContent").val());
+            /* $("#classroomManagefatherModel").val($("#selectContent").val()); */
+        }
+        $('#instructorinformationinfoModal').modal("hide");
+        /*$.post(url, {"name1": "data1", "name2": "data2"}, function (data) {
+
+        });*/
+    });
+
+    function popinstructorinformationinfoModal(url, title, operation) {
+   
+        $("#instructorinformationinfoModalLabel").html(title);
+        $("#instructorinformationinfoModalLabel").attr("key", "function");
+        $("#instructorinformationinfoModalLabel").attr("operation", operation);
+        $('#instructorinformationinfoModal').modal({backdrop: "static", keyboard: false});
+
+        if(url) {
+          
+            $("#instructorinformationinfoModal .modal-body").load(url);
+        }else{
+            $("#instructorinformationinfoModal .modal-body").html("url為空，加載失敗...");
+        }
+    }
+    function instructorinformationinfoSelectPage(obj){
+        /*翻页，获取数据，将其填充到页面上
+         *
+         *
+         */
+        $(".pagination li").removeClass("active");
+        $(obj).parent().addClass("active");//获取当前a标签的父元素li标签，加入active类，使其处于选中状态
+    }
+    $('#instructorinformationinfoModal').on('hide.bs.modal', function () {
+        // 执行一些动作...
+        $("#instructorinformationinfoModal .modal-body").html("");//關閉時清空modal-body的內容
+        $("#instructorinformationinfoModalLabel").removeAttr("operation");//清除標誌
+        $("#instructorinformationinfoModalLabel").removeAttr("key");//清除標誌
+    });
+
+
+    $("#popCommit").click(function () {
+        /*提交數據*/
+        $("#fatherModelPop").val($("#selectContent").val());
+        closePop();
+    });
+    $("#createPop").blur(function () {
+        closePop();
+    });
+    function createrChooseFatherModel(url, title){
+        //$("#functionManageCreateModalLabel").html(title);
+        //alert(url);
+        //$('#functionManageCreateModal').modal({backdrop: "static", keyboard: false});
+        if(url) {
+            $("#createPop").css("display", "block");
+            $("#shade").css("display", "block");
+            $("#createPop-body").load(url);
+        }else{
+            $("#createPop").css("display", "block");
+            $("#shade").css("display", "block");
+            $("#createPop-body").html("url為空，加載失敗...");
+        }
+    }
+    function closePop() {
+        $("#createPop").css("display", "none");
+        $("#shade").css("display", "none");
+        $("#createPop-body").html("");
+    }
+</script>
+</body>
+</html>
+
+

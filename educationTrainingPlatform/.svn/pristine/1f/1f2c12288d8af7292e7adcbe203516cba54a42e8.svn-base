@@ -1,0 +1,62 @@
+package com.foxera.util;
+
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
+
+import com.foxera.viewmodels.QueryCondition;
+import com.foxera.viewmodels.QueryProperty;
+
+public class ConditionHelp {
+
+	public static <T> String getConditionString(QueryCondition condition,
+			Class<T> classz) {
+		String result = "";
+		StringBuilder sb = new StringBuilder();
+		try {
+			T tagerClass = classz.newInstance();
+			if (condition != null) {
+				String aName = "";
+				String value = "";
+				Field field = null;
+				String prefix="";
+				for (QueryProperty item : condition.getqProperty()) {
+					aName = item.getName();
+					prefix="";
+					field = tagerClass.getClass().getDeclaredField(aName);
+					field.setAccessible(true);
+					PropertyDescriptor pd = new PropertyDescriptor(
+							field.getName(), tagerClass.getClass());
+					String type = pd.getPropertyType().getSimpleName();
+					if (item.getComparesymbol().contains("like"))
+					{
+						prefix="%";
+					}
+					switch (type.toLowerCase()) {
+					case "string":
+						value = "'" +prefix+ item.getValue()+prefix + "'";
+						break;
+					default:
+						value = item.getValue();
+						break;
+					}
+					if (item.getAliaName() != null
+							&& item.getAliaName().length() > 0) {
+						aName = item.getAliaName() + "." + item.getName();
+					}
+					value=item.getComparesymbol()+value;
+					sb.append(" " + item.getLogicSymbol() + aName
+							+  value + " ");
+
+				}
+
+				result = sb.toString();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+
+		}
+		return result;
+
+	}
+
+}

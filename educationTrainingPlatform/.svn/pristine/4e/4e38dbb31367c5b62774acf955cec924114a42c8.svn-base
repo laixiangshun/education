@@ -1,0 +1,109 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Techcommittee entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "TECHCOMMITTEE", schema = "TRAIN")
+public class Techcommittee implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal organizationid;
+	private Date createdate;
+	private BigDecimal edituser;
+	private Date editdate;
+	private BigDecimal createuser;
+	private String organizationname;
+
+	// Constructors
+
+	/** default constructor */
+	public Techcommittee() {
+	}
+
+	/** minimal constructor */
+	public Techcommittee(BigDecimal organizationid) {
+		this.organizationid = organizationid;
+	}
+
+	/** full constructor */
+	public Techcommittee(BigDecimal organizationid, Date createdate,
+			BigDecimal edituser, Date editdate, BigDecimal createuser,
+			String organizationname) {
+		this.organizationid = organizationid;
+		this.createdate = createdate;
+		this.edituser = edituser;
+		this.editdate = editdate;
+		this.createuser = createuser;
+		this.organizationname = organizationname;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "ORGANIZATIONID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getOrganizationid() {
+		return this.organizationid;
+	}
+
+	public void setOrganizationid(BigDecimal organizationid) {
+		this.organizationid = organizationid;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "EDITUSER", precision = 22, scale = 0)
+	public BigDecimal getEdituser() {
+		return this.edituser;
+	}
+
+	public void setEdituser(BigDecimal edituser) {
+		this.edituser = edituser;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "EDITDATE", length = 7)
+	public Date getEditdate() {
+		return this.editdate;
+	}
+
+	public void setEditdate(Date editdate) {
+		this.editdate = editdate;
+	}
+
+	@Column(name = "CREATEUSER", precision = 22, scale = 0)
+	public BigDecimal getCreateuser() {
+		return this.createuser;
+	}
+
+	public void setCreateuser(BigDecimal createuser) {
+		this.createuser = createuser;
+	}
+
+	@Column(name = "ORGANIZATIONNAME", length = 300)
+	public String getOrganizationname() {
+		return this.organizationname;
+	}
+
+	public void setOrganizationname(String organizationname) {
+		this.organizationname = organizationname;
+	}
+
+}

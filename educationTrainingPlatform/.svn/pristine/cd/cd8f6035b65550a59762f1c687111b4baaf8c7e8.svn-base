@@ -1,0 +1,143 @@
+package com.foxera.models;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Questsurvey entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "QUESTSURVEY", schema = "TRAIN")
+public class Questsurvey implements java.io.Serializable {
+
+	// Fields
+
+	private BigDecimal questionid;
+	private BigDecimal knowledgeid;
+	private String question;
+	private BigDecimal questiontype;
+	private BigDecimal fullscore;
+	private Date begindate;
+	private Date enddate;
+	private Date createdate;
+	private BigDecimal creator;
+
+	// Constructors
+
+	/** default constructor */
+	public Questsurvey() {
+	}
+
+	/** minimal constructor */
+	public Questsurvey(BigDecimal questionid) {
+		this.questionid = questionid;
+	}
+
+	/** full constructor */
+	public Questsurvey(BigDecimal questionid, BigDecimal knowledgeid,
+			String question, BigDecimal questiontype, BigDecimal fullscore,
+			Date begindate, Date enddate, Date createdate, BigDecimal creator) {
+		this.questionid = questionid;
+		this.knowledgeid = knowledgeid;
+		this.question = question;
+		this.questiontype = questiontype;
+		this.fullscore = fullscore;
+		this.begindate = begindate;
+		this.enddate = enddate;
+		this.createdate = createdate;
+		this.creator = creator;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "QUESTIONID", unique = true, nullable = false, precision = 22, scale = 0)
+	public BigDecimal getQuestionid() {
+		return this.questionid;
+	}
+
+	public void setQuestionid(BigDecimal questionid) {
+		this.questionid = questionid;
+	}
+
+	@Column(name = "KNOWLEDGEID", precision = 22, scale = 0)
+	public BigDecimal getKnowledgeid() {
+		return this.knowledgeid;
+	}
+
+	public void setKnowledgeid(BigDecimal knowledgeid) {
+		this.knowledgeid = knowledgeid;
+	}
+
+	@Column(name = "QUESTION", length = 1500)
+	public String getQuestion() {
+		return this.question;
+	}
+
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+
+	@Column(name = "QUESTIONTYPE", precision = 22, scale = 0)
+	public BigDecimal getQuestiontype() {
+		return this.questiontype;
+	}
+
+	public void setQuestiontype(BigDecimal questiontype) {
+		this.questiontype = questiontype;
+	}
+
+	@Column(name = "FULLSCORE", precision = 22, scale = 0)
+	public BigDecimal getFullscore() {
+		return this.fullscore;
+	}
+
+	public void setFullscore(BigDecimal fullscore) {
+		this.fullscore = fullscore;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "BEGINDATE", length = 7)
+	public Date getBegindate() {
+		return this.begindate;
+	}
+
+	public void setBegindate(Date begindate) {
+		this.begindate = begindate;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ENDDATE", length = 7)
+	public Date getEnddate() {
+		return this.enddate;
+	}
+
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "CREATEDATE", length = 7)
+	public Date getCreatedate() {
+		return this.createdate;
+	}
+
+	public void setCreatedate(Date createdate) {
+		this.createdate = createdate;
+	}
+
+	@Column(name = "CREATOR", precision = 22, scale = 0)
+	public BigDecimal getCreator() {
+		return this.creator;
+	}
+
+	public void setCreator(BigDecimal creator) {
+		this.creator = creator;
+	}
+
+}

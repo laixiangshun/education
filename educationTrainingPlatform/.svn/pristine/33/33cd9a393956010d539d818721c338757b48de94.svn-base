@@ -1,0 +1,308 @@
+package com.foxera.background.dao.impl;
+
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.foxera.background.dao.RoleDao;
+import com.foxera.models.Role;
+import com.foxera.models.Rolefunctional;
+import com.foxera.util.ConditionHelp;
+import com.foxera.util.QueryCondition;
+import com.foxera.viewmodels.RoleFunction;
+import com.foxera.viewmodels.ViewModel;
+
+/**
+ * ��ɫ����dao��ʵ��
+ * @author rainbow
+ *
+ */
+@Repository("RoleDao")
+public class RoleDaoImpl implements RoleDao{
+	@Autowired
+	private SessionFactory sessionFactory;
+
+	@Override
+	public boolean insertRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.save(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.delete(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean deleteRoles(List<Long> roleid) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			Query q=session.createQuery("delete from Role r where r.roleid in (:roleIds)");
+			q.setParameterList("roleIds", roleid);
+			q.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateRole(Role role) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.clear();
+			session.update(role);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public Role SelectRoleById(Long roleid) {
+		Session session =this.sessionFactory.getCurrentSession();
+		try {
+			Role role=(Role)session.createQuery("from Role r where r.roleid =:roleid").setLong("roleid", roleid).uniqueResult();
+			return role;
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Role> SelectRoleByIds(List<Long> roles) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			SQLQuery sql=session.createSQLQuery("select * from role r where r.roleid in (:roleids)").addEntity(Role.class);
+			sql.setParameterList("roleids", roles);
+			return sql.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Role> getRoles(int index, int pagesize) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			//Query q=session.createQuery("select rolecode,rolename,functionname from Role,Rolefunctional,Functionalinfo where Role.roleid=Rolefunctional.roleid and Rolefunctional.functionid=Functionalinfo.functionid");
+			Query q=session.createQuery("FROM Role");
+			q.setFirstResult((index-1)*pagesize);
+			q.setMaxResults(pagesize);
+			return q.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public List<RoleFunction> getRoles(String rolecode, String rolename,
+			Long functionid, int index, int pagesize) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			/*String sql="select r.rolename as rolename,r.rolecode as rolecode,f.functionname as functionname from "
+					+ "role r,rolefunctional rf,functionalinfo f where "
+					+ "r.rolecode=:rolecode and r.rolename=:rolename and f.functionid=:functionid and "
+					+ "r.roleid=rf.roleid and rf.functionid=f.functionid";*/
+			StringBuffer sb=new StringBuffer();
+			sb.append("select r.roleid as roleId,r.rolename as roleName,r.rolecode as roleCode,f.functionname as functionName from ");
+			sb.append("role r,rolefunctional rf,functionalinfo f where ");
+			sb.append("r.rolecode=:rolecode and r.rolename=:rolename and f.functionid=:functionid and r.roleid=rf.roleid and rf.functionid=f.functionid");
+			SQLQuery sq=session.createSQLQuery(sb.toString());
+			sq.addScalar("roleId", StandardBasicTypes.LONG);
+			sq.addScalar("roleName",StandardBasicTypes.STRING);
+			sq.addScalar("roleCode",StandardBasicTypes.STRING);
+			sq.addScalar("functionName",StandardBasicTypes.STRING);
+			sq.setResultTransformer(Transformers.aliasToBean(RoleFunction.class));
+			sq.setParameter("rolecode", rolecode);
+			sq.setParameter("rolename", rolename);
+			sq.setParameter("functionid", functionid);
+			sq.setFirstResult((index-1)*pagesize);
+			sq.setMaxResults(pagesize);
+			List<RoleFunction> roleFunctionList=sq.list();
+			return roleFunctionList;
+		} catch (Exception e) {
+			return null;
+		}
+	
+	}
+
+	@Override
+	public boolean AddRoleFunction(Rolefunctional rolefunction) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			session.save(rolefunction);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Rolefunctional> SelectRoleFunctionalByRoleId(Long roleId) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			Query q=session.createQuery("from Rolefunctional r where r.roleid=:roleid");
+			q.setParameter("roleid",roleId);
+			return q.list();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public boolean DeleteRoleFunctionalByIds(List<Long> roleFunctionalIds) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			//Query q=session.createQuery("delete from Rolefunctional r where r.rfId in (:roleFunctionids)");
+			SQLQuery q=session.createSQLQuery("delete from rolefunctional  where rf_id in (:roleFunctionids)");
+			q.setParameterList("roleFunctionids", roleFunctionalIds);
+			q.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public boolean DeleteRoleFunctionalByRoleids(List<Long> roleIds) {
+		Session sesstion=this.sessionFactory.getCurrentSession();
+		try {
+			SQLQuery q=sesstion.createSQLQuery("delete from rolefunctional  where roleid in (:roleids)");
+			q.setParameterList("roleids", roleIds);
+			q.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	public List<String> GetFunctionNameByRoleId(Long roleId) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			SQLQuery sq= session.createSQLQuery("select f.functionName from functionalinfo f,role r,rolefunctional rf where r.roleid=:roleid and r.roleid=rf.roleid and rf.functionid=f.functionid");
+			sq.setParameter("roleid", roleId);
+			List<String> functionList=sq.list();
+			return functionList;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public RoleFunction SelectRoleFunctionByCodeByName(String rolecode,
+			String rolename) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			StringBuffer sb=new StringBuffer();
+			sb.append("select r.roleid as roleId,f.functionname as functionName ,r.rolecode as roleCode, r.rolename as roleName from ");
+			sb.append("role r inner join rolefunctional rf on r.roleid=rf.roleid inner join functionalinfo f on rf.functionid=f.functionid ");
+			sb.append("where r.rolecode=:rolecode and r.rolename=:rolename and r.roleid>0");
+			SQLQuery sq=session.createSQLQuery(sb.toString());
+			
+			sq.addScalar("roleId", StandardBasicTypes.LONG);
+			sq.addScalar("roleName",StandardBasicTypes.STRING);
+			sq.addScalar("roleCode",StandardBasicTypes.STRING);
+			sq.addScalar("functionName",StandardBasicTypes.STRING);
+			sq.setResultTransformer(Transformers.aliasToBean(RoleFunction.class));
+			
+			sq.setParameter("rolecode", rolecode);
+			sq.setParameter("rolename", rolename);
+			RoleFunction rolefunction=(RoleFunction)sq.uniqueResult();
+			return rolefunction;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+
+	@Override
+	public Role SelectRoleBycode(String rolecode) {
+		Session session=this.sessionFactory.getCurrentSession();
+		try {
+			String hql="from Role r where r.rolecode=:rolecode";
+			Query q=session.createQuery(hql).setParameter("rolecode", rolecode);
+			Role role=(Role)q.uniqueResult();
+			return role;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ViewModel<RoleFunction> getRoleAndFunctioninfos(QueryCondition condition) {
+		Session session=this.sessionFactory.getCurrentSession();
+		ViewModel<RoleFunction> result=new ViewModel<RoleFunction>();
+		
+		StringBuffer sb=new StringBuffer();
+		sb.append("select r.roleid as roleId, r.rolename as roleName,r.rolecode as roleCode,f.functionname as functionName from ");
+		sb.append("role r inner join rolefunctional rf on r.roleid=rf.roleid inner join functionalinfo f on  rf.functionid=f.functionid  where r.roleid>0 ");
+		sb.append(ConditionHelp.getConditionString(condition));
+		//sb.append("where r.rolecode=:rolecode and r.rolename=:rolename and r.roleid=rf.roleid and rf.functionid=f.functionid");
+		
+		//String sql="from Functionalinfo f where functionid>0 ";
+		//sql+=ConditionHelp.getConditionString(condition,Functionalinfo.class);
+		//Query query=session.createQuery(sql);
+		String sql=sb.toString();
+		SQLQuery query=session.createSQLQuery(sql);
+		query.addScalar("roleId", StandardBasicTypes.LONG);
+		query.addScalar("roleName",StandardBasicTypes.STRING);
+		query.addScalar("roleCode",StandardBasicTypes.STRING);
+		query.addScalar("functionName",StandardBasicTypes.STRING);
+		query.setResultTransformer(Transformers.aliasToBean(RoleFunction.class));
+		
+		//List<RoleFunction> total=query.list();
+		sb=new StringBuffer();
+		sb.append("select count(1) as total from ");
+		sb.append("role r inner join rolefunctional rf on r.roleid=rf.roleid inner join functionalinfo f on  rf.functionid=f.functionid  where r.roleid>0 ");
+		sb.append(ConditionHelp.getConditionString(condition));
+		
+		List<RoleFunction> funcs=query
+				.setFirstResult(condition.getPageIndex()*condition.getPageSize())
+				.setMaxResults(condition.getPageSize())
+				.list();
+		sql=sb.toString();
+		query=session.createSQLQuery(sql);
+		int total=Integer.valueOf(query.uniqueResult().toString());
+		result.setPageIndex(condition.getPageIndex());
+		result.setPageSize(condition.getPageSize());
+		result.setTotal(total);
+		result.setResult(funcs);
+		
+		return result;
+	}
+}

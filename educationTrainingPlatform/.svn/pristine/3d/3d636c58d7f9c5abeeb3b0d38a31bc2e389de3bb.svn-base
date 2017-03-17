@@ -1,0 +1,90 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>loginLog</title>
+</head>
+<body>
+    <div id="loginLog">
+        <h3>登錄瀏覽日誌</h3>
+        <div class="search-div">
+            工號：
+            <input type="text" class="form-control" />
+           姓名： 
+            <input type="text" class="form-control" />
+            登錄電腦IP：
+            <input type="text" class="form-control" />
+                   角色：
+            <select class="form-control">
+                <option>ALL</option>
+                <option>角色1</option>
+                <option>角色2</option>
+                <option>角色3</option>
+            </select>
+           </div>
+           <div class="search-div">
+     
+              登錄開始時間：
+              <input id="txtLogindateStart"  style="width:23.4%"  onfocus="selectDate('txtLogindateStart');" type="text" class="form-control"/>
+                 登錄結束時間：
+              <input id="txtLogindateOver"  style="width:23.4%" onfocus="selectDate('txtLogindateOver');" type="text" class="form-control"/>
+               &emsp;<button class="btn btn-xs btn-primary"><b class="glyphicon glyphicon-search"></b>&nbsp;查詢</button>
+        </div>
+         <div id="functionManageData">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                  
+                    <th>工號</th>
+                    <th>中文名</th>
+                    <th>角色</th>
+                    <th>登錄時間</th>
+                    <th>登出時間</th>
+                    <th>登錄IP</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>F7510500</td>
+                    <td>小明</td>
+                    <td>admin</td>
+                    <td>2017-3-5 10:22:30</td>
+                    <td>2017-3-5 10:22:35</td>
+                    <td>10.193.163.1</td>
+                 
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>F7510501</td>
+                    <td>小紅</td>
+                    <td>admin</td>
+                    <td>2017-3-5 10:26:30</td>
+                    <td>2017-3-5 10:29:35</td>
+                    <td>10.193.163.3</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="page-div">
+            <ul class="pagination">
+                <li class="disabled"><a onclick="functionManageSelectPage(this)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                <li class="active"><a onclick="functionManageSelectPage(this)">1 <span class="sr-only">(current)</span></a></li>
+                <li><a onclick="functionManageSelectPage(this)">2</a></li>
+                <li><a onclick="functionManageSelectPage(this)">3</a></li>
+                <li><a onclick="functionManageSelectPage(this)">4</a></li>
+                <li><a onclick="functionManageSelectPage(this)">5</a></li>
+                <li><span >...</span></li>
+                <li><a onclick="functionManageSelectPage(this)">lastPage</a></li>
+                <li>
+                    <a onclick="functionManageSelectPage(this)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

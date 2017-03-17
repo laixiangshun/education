@@ -1,0 +1,21 @@
+package com.foxera.background.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import com.foxera.background.service.SystemSetFunctionService;
+import com.foxera.background.service.SystemSetOrganizationService;
+import com.foxera.background.service.SystemSetRoleService;
+
+@Controller
+public class SystemSetController {
+	@Autowired
+	private SystemSetRoleService sesRoleService;
+	@Autowired
+	private SystemSetFunctionService systemSetFunctionService;
+	@Autowired
+	private SystemSetOrganizationService systemSetOrganizationService;
+	
+	
+
+}

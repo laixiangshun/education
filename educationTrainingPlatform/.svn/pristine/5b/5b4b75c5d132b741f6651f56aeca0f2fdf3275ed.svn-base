@@ -1,0 +1,165 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ include file="../../included/path_lib.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+    <title>Title</title>
+<head>
+<style type="text/css">
+    #classfunctionManageCreate>div{
+        margin-bottom: 10px;
+        text-align:left;
+        margin-left: 100px;
+    }
+    #classfunctionManageCreate .dataName{
+        display: inline-block;
+        width: 110px;
+         text-align:right;
+    }
+    #classfunctionManageCreate input.form-control,
+    #classfunctionManageCreate select.form-control{
+        width: 200px;
+    }
+    #classfunctionManageCreate .text-btn-group input.form-control {
+        width: 450px;
+    }
+    #classfunctionManageCreate textarea.form-control {
+        width: 450px;
+        display: inline-block;
+    }
+    #classfunctionManageCreate #createPop{
+        display: none;
+        width: 100%;
+        position: fixed;
+        z-index: 10001;
+        left: 0;
+        background-color: #ffffff;
+        padding:0 15px;
+        border-radius: 5px;
+        box-shadow:0 0 10px #000000 ;
+        text-align: center;
+    }
+    #shade{
+        display: none;
+        z-index: 10000;
+        background-color: #000000;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+</style>
+</head>
+<body>
+<div id="classfunctionManageCreate">
+	${requestScope.testData }
+    <div id="shade"></div>
+    <div><span class="dataName">教室<font color="red">*</font>：</span> 
+    <select class="form-control">
+                <option>ALL</option>
+                <option>206-阿基米德教室</option>
+                <option>教室B</option>
+                <option>教室C</option>
+            </select>
+          </div>
+            <div>
+            <span class="dataName">教室預約狀況<font color="red">*</font>：</span>
+             <select class="form-control">
+                <option>ALL</option>
+                <option>預約中</option>
+                <option>取消預約</option>
+                <option>已預約</option>
+                <option>拒絕預約</option>
+            </select>
+     </div>
+    <div>
+    <span class="dataName">借用開始時間<font color="red">*</font>：</span>
+      <input id="txtcoursedateStart"   onfocus="selectDate('txtcoursedateStart');" type="text" class="form-control"/></br>
+    <span class="dataName"></span> <font color="red">借用時間段每次為兩小時</font>
+    </div>
+ <div><strong>預約者基本資料</strong></div>
+    <div id="createPop">
+        <div id="createPop-body">
+        </div>
+        <div>
+            <button class="btn btn-primary" id="popCommit">確定</button>
+            <button class="btn btn-primary" id="popSendEmail">發送郵件</button>
+            <button class="btn" id="popClose" onclick="closePop()">關閉</button>
+        </div>
+    </div>
+    
+    <div>
+         <span class="dataName">次集團<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+         </div>
+          <div>
+         <span class="dataName">事業群<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+    </div>
+    <div>
+        <span class="dataName">姓名<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+         </div>
+          <div>
+        <span class="dataName">工號<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+   </div>
+    <div>
+        <span class="dataName">手機<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+         </div>
+          <div>
+        <span class="dataName">分機號碼<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+    </div>
+  <div>
+        <span class="dataName">費用代碼<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+         </div>
+          <div>
+        <span class="dataName">email<font color="red">*</font>：</span>&nbsp;<input type="text" class="form-control"/>
+    </div>
+    <div>
+    <span class="dataName">借用開始時間<font color="red">*</font>：</span>
+      <input id="txtcoursedateOver"   onfocus="selectDate('txtcoursedateOver');" type="text" class="form-control"/>
+    </div>
+    <div >
+       <span class="dataName" >使用目的<font color="red">*</font>：</span>
+       <textarea class="form-control"  rows="6" cols="70" style="width:300px;vertical-align:top" maxlength="420"></textarea>
+    </div>
+   
+       <div   >
+       <span class="dataName" >拒絕理由<font color="red">*</font>：</span>
+       <textarea  class="form-control"  rows="6" cols="70"  style="width:300px;vertical-align:top" maxlength="420" ></textarea>
+  
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#popCommit").click(function () {
+        /*提交數據*/
+        $("#fatherModelPop").val($("#selectContent").val());
+        closePop();
+    });
+    $("#createPop").blur(function () {
+        closePop();
+    });
+    function createrChooseFatherModel(url, title){
+        //$("#functionManageCreateModalLabel").html(title);
+        //alert(url);
+        //$('#functionManageCreateModal').modal({backdrop: "static", keyboard: false});
+        if(url) {
+            $("#createPop").css("display", "block");
+            $("#shade").css("display", "block");
+            $("#createPop-body").load(url);
+        }else{
+            $("#createPop").css("display", "block");
+            $("#shade").css("display", "block");
+            $("#createPop-body").html("url為空，加載失敗...");
+        }
+    }
+    function closePop() {
+        $("#createPop").css("display", "none");
+        $("#shade").css("display", "none");
+        $("#createPop-body").html("");
+    }
+</script>
+</body>
+</html>
+
+

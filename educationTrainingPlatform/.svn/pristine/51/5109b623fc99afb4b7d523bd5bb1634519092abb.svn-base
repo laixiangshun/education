@@ -1,0 +1,134 @@
+<link href="../../style/css/popDiscuss.css" type="text/css" rel="stylesheet"/>
+
+<script src="../../../jQuery/jquery-3.1.1.min.js" type="text/javascript"></script>
+<div id="popDiscuss">
+    <div id="discussList">
+        <div class="discuss-item">
+            <div class="discuss-show">
+                <div class="discuss-index">
+                    1
+                </div>
+                <div class="discuss-content">
+                    <p ><span class="name">回答者:</span><span class="user">匿名</span></p>
+                    <p ><span class="name">回答時間:</span><span class="answerDate">Date</span></p>
+                    <p ><span class="name">內容：</span><span class="content">勞動法第二條？</span></p>
+                    <div class="answerList">
+                        <div class="anwerItem" >
+                            <p>一星期工作時數不能超過工時40小時
+                                <a href="#" onclick="answer(1)">回文</a>
+                                <div class="discuss-input discuss-input1" status="hide">
+                                    <textarea class="form-control" maxlength="300" id="answerContent1"></textarea>
+                                    <button class="btn btn-xs btn-primary" onclick="commitAnswer(this, 1)">發表</button>
+                                </div>
+                            </p>
+                        </div>
+                        <div class="anwerItem" >
+                            <p>一星期工作時數不能超過工時40小時大家看手機愛卡的了解打開手機的綠卡極速的的記錄卡
+                                幾十塊了多久了開始手機端快捷阿里看見的
+                                <a href="#" onclick="answer(3)">回文</a>
+                            </p>
+                            <div class="discuss-input discuss-input3" status="hide">
+                                <textarea class="form-control" maxlength="300" id="answerContent3"></textarea>
+                                <button class="btn btn-xs btn-primary" onclick="commitAnswer(this, 3)">發表</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="discuss-item">
+            <div class="discuss-show">
+                <div class="discuss-index">
+                    2
+                </div>
+                <div class="discuss-content">
+                    <p ><span class="name">回答者:</span><span class="user">匿名</span></p>
+                    <p ><span class="name">回答時間:</span><span class="answerDate">Date</span></p>
+                    <p ><span class="name">內容：</span><span class="content">勞動法第二條？</span></p>
+                    <div class="answerList">
+                        <div class="anwerItem">
+                            <p>一星期工作時數不能超過工時40小時
+                                <a href="#" onclick="answer(4)">回文</a>
+                            <div class="discuss-input discuss-input4" status="hide">
+                                <textarea class="form-control" maxlength="300" id="answerContent4"></textarea>
+                                <button class="btn btn-xs btn-primary" onclick="commitAnswer(this, 4)">發表</button>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="anwerItem" >
+                            <p>一星期工作時數不能超過工時40小時大家看手機愛卡的了解打開手機的綠卡極速的的記錄卡
+                                幾十塊了多久了開始手機端快捷阿里看見的
+                                <a href="#" onclick="answer(5)">回文</a>
+                            </p>
+                            <div class="discuss-input discuss-input5" status="hide">
+                                <textarea class="form-control" maxlength="300" id="answerContent5"></textarea>
+                                <button class="btn btn-xs btn-primary" onclick="commitAnswer(this, 5)">發表</button>
+                            </div>
+                        </div>
+                        <div class="anwerItem" >
+                            <p>一星期工作時數不能超過工時40小時大家看手機愛卡的了解打開手機的綠卡極速的的記錄卡
+                                幾十塊了多久了開始手機端快捷阿里看見的
+                                <a href="#" onclick="answer(6)">回文</a>
+                            </p>
+                            <div class="discuss-input discuss-input6" status="hide">
+                                <textarea class="form-control" maxlength="300" id="answerContent6"></textarea>
+                                <button class="btn btn-xs btn-primary" onclick="commitAnswer(this, 6)">發表</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page-div">
+        <ul class="pagination">
+            <li class="disabled"><a onclick="next(this)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            <li class="active"><a onclick="next(this)">1 <span class="sr-only">(current)</span></a></li>
+            <li><a onclick="next(this)">2</a></li>
+            <li><a onclick="next(this)">3</a></li>
+            <li><span >...</span></li>
+            <li><a onclick="next(this)">lastPage</a></li>
+            <li>
+                <a onclick="next(this)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div id="discuss-commit-div">
+        <textarea class="form-control" maxlength="300" placeholder="輸入評論，300字以內"></textarea>
+        <button class="btn btn-xs btn-primary">發表</button>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var tempId = 10;//模擬唯一的評論的id
+    function answer(id) {
+        //alert($(".discuss-input" + id).attr("status"));
+        if($(".discuss-input" + id).attr("status") == "hide"){
+            $(".discuss-input" + id).css("display", "block");
+            $(".discuss-input" + id).attr("status", "show");
+        }else {
+            $(".discuss-input" + id).css("display", "none");
+            $(".discuss-input" + id).attr("status", "hide");
+        }
+    }
+    function commitAnswer(target, id) {
+        var element = $("#answerContent" + id);
+        var content = element.val();
+        if (content != "") {
+            /* 模擬提交后的效果 */
+            var innerHtml = "<div class='anwerItem'>" +
+                "<p>" + content + "<a href='#' onclick='answer(" + tempId + ")'>回文</a>" +
+                "<div class='discuss-input discuss-input" + tempId + "' status='hide'><textarea class='form-control' " +
+                "maxlength='300'" + " id='answerContent" + tempId + "'></textarea><button " +
+                "class='btn btn-xs btn-primary' onclick='commitAnswer(this, " + tempId + ")'>發表</button></div></p></div>";
+
+            $(target).closest(".answerList").append(innerHtml);
+            $("#answerContent" + id).val();//清空當前輸入的評論
+            tempId++;//加一保持唯一变量
+        }
+        $(".discuss-input" + id).css("display", "none");
+        $(".discuss-input" + id).attr("status", "hide");
+    }
+</script>

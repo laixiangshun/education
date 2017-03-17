@@ -1,0 +1,59 @@
+package com.foxera.background.dao;
+
+import java.util.List;
+
+import com.foxera.models.Role;
+
+/**
+ * <b>角色管理</b>相关数据操作
+ * @author fox
+ *
+ */
+public interface RoleDao {
+	/**
+	 * 新增角色
+	 * @param role
+	 * @return
+	 */
+	public boolean insertRole(Role role);
+	
+	/**
+	 * 删除角色
+	 * @param role
+	 * @return
+	 */
+	public boolean deleteRole(Role role);
+	
+	/**
+	 * 按照角色id删除多个角色
+	 * @param roleid
+	 * @return
+	 */
+	public boolean deleteRoles(long roleid);
+	
+	/**
+	 * 更新角色信息
+	 * @param role
+	 * @return
+	 */
+	public boolean updateRole(Role role);
+	
+	/**
+	 * 查询所有角色（分页）
+	 * @param index 第几页
+	 * @param pagesize 每页几条
+	 * @return
+	 */
+	public List<Role> getRoles(int index,int pagesize);
+
+	/**
+	 * 按照条件进行查询角色（分页）
+	 * @param rolecode 角色识别码
+	 * @param rolename 角色名称
+	 * @param functionid 角色拥有的功能权限
+	 * @param index 第几页
+	 * @param pagesize 每页几条
+	 * @return
+	 */
+	public List<Role> getRoles(String rolecode,String rolename,long[] functionid,int index,int pagesize);
+}

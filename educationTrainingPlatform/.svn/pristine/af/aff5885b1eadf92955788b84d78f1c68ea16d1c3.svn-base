@@ -1,0 +1,162 @@
+package com.foxera.models;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+
+/**
+ * Role entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name="ROLE"
+    ,schema="TRAIN"
+)
+
+public class Role  implements java.io.Serializable {
+
+
+    // Fields    
+
+     private Long roleid;
+     private String rolename;
+     private Long createuser;
+     private Date createdate;
+     private Long edituser;
+     private Date editdate;
+     private Long status;
+     private Long contactstate;
+     private String rolecode;
+
+
+    // Constructors
+
+    /** default constructor */
+    public Role() {
+    }
+
+	/** minimal constructor */
+    public Role(Long roleid) {
+        this.roleid = roleid;
+    }
+    
+    /** full constructor */
+    public Role(Long roleid, String rolename, Long createuser, Date createdate, Long edituser, Date editdate, Long status, Long contactstate, String rolecode) {
+        this.roleid = roleid;
+        this.rolename = rolename;
+        this.createuser = createuser;
+        this.createdate = createdate;
+        this.edituser = edituser;
+        this.editdate = editdate;
+        this.status = status;
+        this.contactstate = contactstate;
+        this.rolecode = rolecode;
+    }
+
+   
+    // Property accessors
+    @Id 
+    
+    @Column(name="ROLEID", unique=true, nullable=false, precision=18, scale=0)
+
+    public Long getRoleid() {
+        return this.roleid;
+    }
+    
+    public void setRoleid(Long roleid) {
+        this.roleid = roleid;
+    }
+    
+    @Column(name="ROLENAME", length=150)
+
+    public String getRolename() {
+        return this.rolename;
+    }
+    
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+    
+    @Column(name="CREATEUSER", precision=18, scale=0)
+
+    public Long getCreateuser() {
+        return this.createuser;
+    }
+    
+    public void setCreateuser(Long createuser) {
+        this.createuser = createuser;
+    }
+    @Temporal(TemporalType.DATE)
+    @Column(name="CREATEDATE", length=7)
+
+    public Date getCreatedate() {
+        return this.createdate;
+    }
+    
+    public void setCreatedate(Date createdate) {
+        this.createdate = createdate;
+    }
+    
+    @Column(name="EDITUSER", precision=18, scale=0)
+
+    public Long getEdituser() {
+        return this.edituser;
+    }
+    
+    public void setEdituser(Long edituser) {
+        this.edituser = edituser;
+    }
+    @Temporal(TemporalType.DATE)
+    @Column(name="EDITDATE", length=7)
+
+    public Date getEditdate() {
+        return this.editdate;
+    }
+    
+    public void setEditdate(Date editdate) {
+        this.editdate = editdate;
+    }
+    
+    @Column(name="STATUS", precision=18, scale=0)
+
+    public Long getStatus() {
+        return this.status;
+    }
+    
+    public void setStatus(Long status) {
+        this.status = status;
+    }
+    
+    @Column(name="CONTACTSTATE", precision=18, scale=0)
+
+    public Long getContactstate() {
+        return this.contactstate;
+    }
+    
+    public void setContactstate(Long contactstate) {
+        this.contactstate = contactstate;
+    }
+    
+    @Column(name="ROLECODE", length=150)
+
+    public String getRolecode() {
+        return this.rolecode;
+    }
+    
+    public void setRolecode(String rolecode) {
+        this.rolecode = rolecode;
+    }
+   
+
+
+
+
+
+
+
+
+}

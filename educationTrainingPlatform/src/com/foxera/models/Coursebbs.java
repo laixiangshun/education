@@ -1,0 +1,130 @@
+package com.foxera.models;
+
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ * Coursebbs entity. @author MyEclipse Persistence Tools
+ */
+@Entity
+@Table(name = "COURSEBBS", schema = "TRAIN")
+public class Coursebbs implements java.io.Serializable {
+
+	// Fields
+
+	private Long discussid;
+	private Long knowledgeid;
+	private String asker;
+	private String askcontent;
+	private Date askdate;
+	private Long answerer;
+	private String content;
+	private Date anstime;
+
+	// Constructors
+
+	/** default constructor */
+	public Coursebbs() {
+	}
+
+	/** minimal constructor */
+	public Coursebbs(Long discussid) {
+		this.discussid = discussid;
+	}
+
+	/** full constructor */
+	public Coursebbs(Long discussid, Long knowledgeid, String asker,
+			String askcontent, Date askdate, Long answerer, String content,
+			Date anstime) {
+		this.discussid = discussid;
+		this.knowledgeid = knowledgeid;
+		this.asker = asker;
+		this.askcontent = askcontent;
+		this.askdate = askdate;
+		this.answerer = answerer;
+		this.content = content;
+		this.anstime = anstime;
+	}
+
+	// Property accessors
+	@Id
+	@Column(name = "DISCUSSID", unique = true, nullable = false, precision = 18, scale = 0)
+	public Long getDiscussid() {
+		return this.discussid;
+	}
+
+	public void setDiscussid(Long discussid) {
+		this.discussid = discussid;
+	}
+
+	@Column(name = "KNOWLEDGEID", precision = 18, scale = 0)
+	public Long getKnowledgeid() {
+		return this.knowledgeid;
+	}
+
+	public void setKnowledgeid(Long knowledgeid) {
+		this.knowledgeid = knowledgeid;
+	}
+
+	@Column(name = "ASKER", length = 150)
+	public String getAsker() {
+		return this.asker;
+	}
+
+	public void setAsker(String asker) {
+		this.asker = asker;
+	}
+
+	@Column(name = "ASKCONTENT", length = 1500)
+	public String getAskcontent() {
+		return this.askcontent;
+	}
+
+	public void setAskcontent(String askcontent) {
+		this.askcontent = askcontent;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ASKDATE", length = 7)
+	public Date getAskdate() {
+		return this.askdate;
+	}
+
+	public void setAskdate(Date askdate) {
+		this.askdate = askdate;
+	}
+
+	@Column(name = "ANSWERER", precision = 18, scale = 0)
+	public Long getAnswerer() {
+		return this.answerer;
+	}
+
+	public void setAnswerer(Long answerer) {
+		this.answerer = answerer;
+	}
+
+	@Column(name = "CONTENT", length = 1500)
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "ANSTIME", length = 7)
+	public Date getAnstime() {
+		return this.anstime;
+	}
+
+	public void setAnstime(Date anstime) {
+		this.anstime = anstime;
+	}
+
+}

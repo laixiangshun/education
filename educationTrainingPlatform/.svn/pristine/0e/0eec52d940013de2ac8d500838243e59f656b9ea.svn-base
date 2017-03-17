@@ -1,0 +1,70 @@
+
+<style type="text/css">
+    .roomReservationNotice{
+        width: 460px;
+    }
+    #roomReservation{
+        text-align: center;
+    }
+    .roomReservation_calendar{
+        display: inline-block;
+        width: 460px;
+    }
+</style>
+<div id="roomReservation">
+    <div class="roomReservation_calendar">
+        <div id="calen">
+
+        </div>
+        <div class="roomReservationNotice">
+            <div style="margin-bottom: 10px;"><a href="#" >阿基米德教室操作SOP</a></div>
+            <strong><p style="font-size: 20px;">阿基米德教室/206會議室使用規則</p></strong>
+            <p>1、本預約場地由台北人力資源總處管理，本預約場地由台北人力資源總處管理，本預約場地由台北人力資源總處管理，
+                本預約場地由台北人力資源總處管理，本預約場地由台北人力資源總處管理，本預約場地由台北人力資源總處管理</p>
+            <p>2、每次登記借用時間最多2小時</p>
+            <p>3、輸入個人資料輸入個人資料輸入個人資料輸入個人資料。</p>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div style="" class="modal fade" id="reservationDetail" tabindex="-1" role="dialog" aria-labelledby="reservationDetailLabel">
+        <div class="modal-dialog" role="document" style="width: 800px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="reservationDetailLabel">會議室/教室預約</h4>
+                </div>
+                <div  class="modal-body">
+                    加載中...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">確定</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">關閉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+</div>
+
+<script src="../../../jQuery/mcalendar.js" type="text/javascript"></script>
+<script>
+    new calendar("calen",[1,2,3,5,6,15,29]);
+    function calendarClick(target){
+        var url = "roomReservationDetail.html";
+        //获取年月日
+        var year = String(parseInt($("#Year").html()));
+        var month = String(parseInt($("#Month").html()));
+        var day = $(target).attr("value");
+        month = month < 10 ? "0"+month :month ;
+        day = day < 10 ? "0"+day :day ;
+        /*alert(year + month +day);*/
+        $("#reservationDetail").modal();
+        $("#reservationDetail .modal-body").load(url);
+    }
+    $(document).ready(function(){
+        var width =$("#main-body-right").width();
+        $("#roomReservation").css("width", width);
+    });
+</script>
